@@ -108,11 +108,12 @@ public class RankFragment extends Fragment {
         titles.add("音乐");
         titles.add("电影");
         titles.add("微博");
-        titles.add("其他");
+        titles.add("军事");
+        titles.add("贴吧");
         //初始化ViewPager的数据集
         List<RankListFragment> fragments = new ArrayList<>();
         //初始化它
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i <= 7; i++) {
             tab_rank.addTab(tab_rank.newTab().setText(titles.get(i)));
             Bundle bundle = new Bundle();
             bundle.putInt("position", i);

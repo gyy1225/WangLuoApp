@@ -23,12 +23,14 @@ public class MyRankRecyclerViewAdapter extends RecyclerView.Adapter<MyRankRecycl
 class ViewHolder extends RecyclerView.ViewHolder{
     TextView tv_grade;
     TextView tv_title;
+    TextView tv_author;
 
     public ViewHolder(View itemView) {
         super(itemView);
 
         tv_grade=(TextView)itemView.findViewById(R.id.rank_grade);
         tv_title=(TextView)itemView.findViewById(R.id.rank_title);
+        tv_author=(TextView)itemView.findViewById(R.id.rank_author);
     }
 }
 public MyRankRecyclerViewAdapter(List<Content> contentList){
@@ -55,6 +57,7 @@ public MyRankRecyclerViewAdapter(List<Content> contentList){
     Content content=mContentList.get(position);
     holder.tv_grade.setText(content.getId());
     holder.tv_title.setText(content.getTitle());
+    holder.tv_author.setText(content.getAuthor());
     }
 
     @Override

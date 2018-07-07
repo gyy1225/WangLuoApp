@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wangluo.Adapter.MyRankRecyclerViewAdapter;
@@ -26,7 +27,7 @@ public class RankListFragment extends Fragment {
         private String mTitle;
         private int mPosition;
         private List<Content> rankContentList=new ArrayList<>();
-
+        private ImageView imageView;
         public void setTitle(String mTitle) {
             this.mTitle = mTitle;
         }
@@ -41,6 +42,7 @@ public class RankListFragment extends Fragment {
             recyclerView.setLayoutManager(layoutManager);
             mPosition=getArguments().getInt("position");
 
+            imageView=(ImageView)viewContent.findViewById(R.id.rank_image) ;
             initList(mPosition);
             MyRankRecyclerViewAdapter myRankRecyclerViewAdapter=new MyRankRecyclerViewAdapter(rankContentList);
             recyclerView.setAdapter(myRankRecyclerViewAdapter);
@@ -50,13 +52,43 @@ public class RankListFragment extends Fragment {
         public List<Content> initList(int mPosition){
             switch (mPosition) {
                 case 0:
+                    imageView.setImageResource(R.drawable.csdn3);
+
+                    break;
+                case 1:
+                    imageView.setImageResource(R.drawable.tiyu2);
+
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.redian3);
+
+                    break;
+                case 3:
                     Content content1 = new Content();
                     content1.setId("1");
+                    imageView.setImageResource(R.drawable.wangyiyun2);
                     content1.setTitle("往后余生");
                     content1.setAuthor("马良");
                   //  if (rankContentList==null)
                     rankContentList.add(content1);
                     break;
+                case 4:
+                    imageView.setImageResource(R.drawable.dianying2);
+
+                    break;
+                case 5:
+                    imageView.setImageResource(R.drawable.weibo3);
+
+                    break;
+                case 6:
+                    imageView.setImageResource(R.drawable.junshi2);
+
+                    break;
+                case 7:
+                    imageView.setImageResource(R.drawable.tieba3);
+
+                    break;
+
                 default:
             }
             return  rankContentList;
