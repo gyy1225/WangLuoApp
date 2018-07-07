@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">WangLuo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <array name="rank_tab">
+        <item>互联网@dream@0</item>
+        <item>体育@dream@1</item>
+        <item>社会@dream@2</item>
+        <item>音乐@dream@3</item>
+        <item>电影@dream@4</item>
+        <item>微博@dream@5</item>
+        <item>其他@dream@6</item>
+    </array>
+</resources>
