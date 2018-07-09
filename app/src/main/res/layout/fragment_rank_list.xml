@@ -26,10 +26,7 @@
             android:layout_above="@id/navigation"
             android:background="@color/colorPrimaryDark" />
     </LinearLayout>
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:id="@+id/rank_image"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_rank"
         android:layout_width="match_parent"
