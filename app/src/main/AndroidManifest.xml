@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".Activity.SplashActivity" />
         <activity android:name=".Activity.ContentActivity"></activity>
+
     </application>
 
 </manifest>

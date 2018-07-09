@@ -12,6 +12,16 @@ public class Content {
     private int imageID;
     private String contentURL;
     private String resource;
+
+    public String getWebres() {
+        return webres;
+    }
+
+    public void setWebres(String webres) {
+        this.webres = webres;
+    }
+
+    private String webres;
     public String getResource() {
         return resource;
     }

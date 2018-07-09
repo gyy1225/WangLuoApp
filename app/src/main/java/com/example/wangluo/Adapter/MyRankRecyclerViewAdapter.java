@@ -24,6 +24,7 @@ class ViewHolder extends RecyclerView.ViewHolder{
     TextView tv_grade;
     TextView tv_title;
     TextView tv_author;
+    TextView tv_resource;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -31,6 +32,7 @@ class ViewHolder extends RecyclerView.ViewHolder{
         tv_grade=(TextView)itemView.findViewById(R.id.rank_grade);
         tv_title=(TextView)itemView.findViewById(R.id.rank_title);
         tv_author=(TextView)itemView.findViewById(R.id.rank_author);
+        tv_resource=(TextView)itemView.findViewById(R.id.rank_resource);
     }
 }
 public MyRankRecyclerViewAdapter(List<Content> contentList){
@@ -58,6 +60,7 @@ public MyRankRecyclerViewAdapter(List<Content> contentList){
     holder.tv_grade.setText(content.getId());
     holder.tv_title.setText(content.getTitle());
     holder.tv_author.setText(content.getAuthor());
+    holder.tv_resource.setText(content.getResource());
     }
 
     @Override
