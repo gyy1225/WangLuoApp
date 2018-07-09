@@ -55,7 +55,7 @@ public MyRankRecyclerViewAdapter(List<Content> contentList){
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+    holder.setIsRecyclable(false);
     Content content=mContentList.get(position);
     holder.tv_grade.setText(content.getId());
     holder.tv_title.setText(content.getTitle());

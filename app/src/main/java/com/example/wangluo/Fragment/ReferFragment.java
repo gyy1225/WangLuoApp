@@ -72,7 +72,7 @@ public class ReferFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         //mReferList=initRecyclerView();
-        sendRequestWithOkHttp();
+        sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews");
         return view;
 
     }
@@ -84,14 +84,14 @@ private List<Content> initRecyclerView(){
        mReferList.add(content1);
         return mReferList;
 }
-private void sendRequestWithOkHttp() {
+private void sendRequestWithOkHttp(final String url) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     OkHttpClient mOkHttpClient = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://haojie06.me:9999/get?cloudmusic")
+                            .url(url)
                             .build();
                     Response response = mOkHttpClient.newCall(request).execute();
                     String responseData =response.body().string();

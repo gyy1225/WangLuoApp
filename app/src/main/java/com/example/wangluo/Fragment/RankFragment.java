@@ -102,14 +102,16 @@ public class RankFragment extends Fragment {
 
         //设置它的名字
         List<String> titles = new ArrayList<>();
-        titles.add("互联网");
-        titles.add("体育");
+        titles.add("微博");
+        titles.add("贴吧");
         titles.add("社会");
         titles.add("音乐");
-        titles.add("电影");
-        titles.add("微博");
-        titles.add("军事");
-        titles.add("贴吧");
+        titles.add("影视");
+        titles.add("娱乐");
+        titles.add("互联网");
+        titles.add("体育");
+
+
         //初始化ViewPager的数据集
         List<RankListFragment> fragments = new ArrayList<>();
         //初始化它

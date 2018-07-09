@@ -42,6 +42,9 @@ public class RankListFragment extends Fragment {
         private String mTitle;
         private int mPosition;
         private List<Content> rankContentList=new ArrayList<>();
+    private List<Content> tiebaContentList=new ArrayList<>();
+    private List<Content> weiboContentList=new ArrayList<>();
+    private List<Content> yuleContentList=new ArrayList<>();
         private ImageView imageView;
         private RecyclerView recyclerView;
         public void setTitle(String mTitle) {
@@ -49,7 +52,7 @@ public class RankListFragment extends Fragment {
         }
         private String str;
         private Context mContext;
-
+        private  MyRankRecyclerViewAdapter  myRankRecyclerViewAdapter=new MyRankRecyclerViewAdapter(rankContentList);
     //private String responseData;
 private Handler handler= new Handler(){
 
@@ -57,7 +60,18 @@ private Handler handler= new Handler(){
 
         switch (msg.what) {
             case 1:
-                MyRankRecyclerViewAdapter  myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(rankContentList);
+                myRankRecyclerViewAdapter.notifyDataSetChanged();
+                myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(rankContentList);
+                recyclerView.setAdapter(myRankRecyclerViewAdapter);
+                break;
+            case 2:
+                myRankRecyclerViewAdapter.notifyDataSetChanged();
+                myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(weiboContentList);
+                recyclerView.setAdapter(myRankRecyclerViewAdapter);
+                break;
+            case 3:
+                myRankRecyclerViewAdapter.notifyDataSetChanged();
+                myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(tiebaContentList);
                 recyclerView.setAdapter(myRankRecyclerViewAdapter);
                 break;
             case 0:
@@ -83,57 +97,54 @@ private Handler handler= new Handler(){
 
             imageView=(ImageView)viewContent.findViewById(R.id.rank_image) ;
             initList(mPosition);
-            /*MyRankRecyclerViewAdapter myRankRecyclerViewAdapter=new MyRankRecyclerViewAdapter(rankContentList);
-            recyclerView.setAdapter(myRankRecyclerViewAdapter);*/
-
             return viewContent;
         }
         public List<Content> initList(int mPosition){
 
             switch (mPosition) {
                 case 0:
-                    imageView.setImageResource(R.drawable.csdn3);
-                   // sendRequestWithOkHttp("http://www.baidu.com");
+                    imageView.setImageResource(R.drawable.weibo3);
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews",2);
                     break;
                 case 1:
-                    imageView.setImageResource(R.drawable.tiyu2);
-
+                    imageView.setImageResource(R.drawable.tieba3);
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews",3);
                     break;
                 case 2:
                     imageView.setImageResource(R.drawable.redian3);
-
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews",1);
                     break;
                 case 3:
-                    Content content1 = new Content();
-
                     imageView.setImageResource(R.drawable.wangyiyun2);
-                    /*content1.setTitle("往后余生");content1.setId("1");
-                    content1.setAuthor("马良");
-                    rankContentList.add(content1);*/
-                    sendRequestWithOkHttp("http://haojie06.me:9999/get?cloudmusic");
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?cloudmusic",1);
                     break;
                 case 4:
                     imageView.setImageResource(R.drawable.dianying2);
 
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?hotmedias",1);
                     break;
                 case 5:
-                    imageView.setImageResource(R.drawable.weibo3);
+                    imageView.setImageResource(R.drawable.dongmanlogo);
 
                     break;
                 case 6:
+                    imageView.setImageResource(R.drawable.csdn3);
+                   // sendRequestWithOkHttp("http://www.baidu.com");
+                    break;
+
+
+                case 7:
                     imageView.setImageResource(R.drawable.junshi2);
 
                     break;
-                case 7:
-                    imageView.setImageResource(R.drawable.tieba3);
 
-                    break;
 
                 default:
             }
             return  rankContentList;
         }
-    private void sendRequestWithOkHttp(final String url) {
+
+    private void sendRequestWithOkHttp(final String url,final int i) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -144,7 +155,7 @@ private Handler handler= new Handler(){
                             .build();
                     Response response = mOkHttpClient.newCall(request).execute();
                     String responseData =response.body().string();
-                    showResponse(responseData);
+                    showResponse(responseData,i);
                 } catch (IOException e) {
                         e.printStackTrace();
                         Message message=new Message();
@@ -155,24 +166,108 @@ private Handler handler= new Handler(){
             }).start();
 
     }
-    private void showResponse(String response){
-        String content[]=response.split("', '");
-       for (String mContent:content) {
-            Content content1 = new Content();
+    private void showResponse(String response,int i){
+            String content[]=response.split("', '");
             String contents[]=new String[100];
-            contents=mContent.split("\\$\\$");
-            content1.setWebres(contents[0]);
-            content1.setResource(contents[1]);
-            content1.setId(contents[2]);
-            content1.setTitle(contents[3]);
-            content1.setAuthor(contents[4]);
-            content1.setContentURL(contents[5]);
+        for (String mContent:content) {
+            Content content1 = new Content();
+            contents = mContent.split("\\$\\$");
+            String str=contents[0].replace(" ","");
+            str=str.replace("[","");
+            str=str.replace("'","");
+            switch (str){
+                //百度风云榜
+                case "百度风云榜实时热点":
+                        content1.setResource(str);
+                        content1.setId(contents[1]);
+                        content1.setTitle(contents[2]);
+                        content1.setContentURL(contents[3]);
+                        content1.setAuthor(contents[4]);
+                        rankContentList.add(content1);
+                    break;
+                //网易云音乐
+                case "网易云音乐":
+                    contents=mContent.split("\\$\\$");
+                    content1.setWebres(str);
+                    content1.setResource(contents[1]);
+                    content1.setId(contents[2]);
+                    content1.setTitle(contents[3]);
+                    content1.setAuthor(contents[4]);
+                    content1.setContentURL(contents[5]);
+//
+                        rankContentList.add(content1);
+                        break;
+                    //电影
+                case "热门电影":
+                        content1.setResource(str);
+                        content1.setId(contents[1]);
+                        content1.setTitle(contents[2]);
+                        content1.setAuthor(contents[3]);
+                        content1.setContentURL(contents[4]);
 //            content1.setImageID(Integer.parseInt(contents[6]));
-          //  content1.setTitle(mContent);
-            rankContentList.add(content1);
+                        //  content1.setTitle(mContent);
+                        rankContentList.add(content1);
+                    break;
+                    //电视剧
+                case "热门电视剧":
+                content1.setResource(str);
+                content1.setId(contents[1]);
+                content1.setTitle(contents[2]);
+                content1.setAuthor(contents[3]);
+                content1.setContentURL(contents[4]);
+//              content1.setImageID(Integer.parseInt(contents[6]));
+                //  content1.setTitle(mContent);
+                rankContentList.add(content1);
+                //综艺动漫小说
+                case "热门综艺":
+                case "热门动漫":
+                case "热门小说":
+                    content1.setResource(str);
+                    content1.setId(contents[1]);
+                    content1.setTitle(contents[2]);
+                    content1.setAuthor(contents[3]);
+                    content1.setContentURL(contents[4]);
+//              content1.setImageID(Integer.parseInt(contents[6]));
+                    //  content1.setTitle(mContent);
+                    rankContentList.add(content1);
+                    //微博
+                case "微博热搜":
+                    content1.setResource(str);
+                    content1.setId(contents[1]);
+                    content1.setTitle(contents[2]);
+                    content1.setContentURL(contents[3]);
+                    content1.setAuthor(contents[4]);
+                    weiboContentList.add(content1);
+                    break;
+                //贴吧
+                case "贴吧实时热点":
+                    content1.setResource(str);
+                    content1.setId(contents[1]);
+                    content1.setTitle(contents[2]);
+                    content1.setContentURL(contents[3]);
+                    content1.setAuthor(contents[4]);
+                    tiebaContentList.add(content1);
+                    break;
+                default:
+            }
+
         }
             Message message=new Message();
-            message.what=1;
+        switch (i){
+            case 1:message.what=1;
+            break;
+            case 2:message.what=2;
+            break;
+            case 3:message.what=3;
+            break;
+            case 4:message.what=4;
+            break;
+            case 5:message.what=5;
+            break;
+            default:
+
+        }
+
             handler.sendMessage(message);
         }
     }
