@@ -1,37 +1,34 @@
 package com.example.wangluo.Adapter;
 
-/**
- * Created by ASUS on 2018/7/5.
- */
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.example.wangluo.Fragment.RankListFragment;
-import com.example.wangluo.Fragment.TrackFragment;
 import com.example.wangluo.Fragment.TrackListFragment;
 
 import java.util.List;
 
+/**
+ * Created by ASUS on 2018/7/9.
+ */
 
-public class TabFragmentAdapter extends FragmentPagerAdapter {
+public class TrackTabFragmentAdapter extends FragmentPagerAdapter {
 
-    private final List<RankListFragment> mFragmentList;
-    //private final List<TrackListFragment> mTrackFragmentList;
+    private final List<TrackListFragment> mTrackFragmentList;
     private final List<String> mTabTitle;
 
 
-    public TabFragmentAdapter(FragmentManager fm, List<RankListFragment> fragmentList, List<String> tabTitle) {
+    public TrackTabFragmentAdapter(FragmentManager fm, List<TrackListFragment> fragmentList, List<String> tabTitle) {
 
         super(fm);
 
-        this.mFragmentList = fragmentList;
+        this.mTrackFragmentList= fragmentList;
 
         this.mTabTitle = tabTitle;
 
-       // mTrackFragmentList = null;
+        // mTrackFragmentList = null;
     }
 
 
@@ -39,7 +36,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     public Fragment getItem(int position) {
 
-        return mFragmentList.get(position);
+        return mTrackFragmentList.get(position);
 
     }
 
@@ -48,7 +45,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     public int getCount() {
 
-        return mFragmentList.size();
+        return mTrackFragmentList.size();
 
     }
 
@@ -69,5 +66,4 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
         super.destroyItem(container, position, object);
 
     }
-
 }

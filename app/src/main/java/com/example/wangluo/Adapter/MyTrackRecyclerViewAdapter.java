@@ -20,11 +20,13 @@ import java.util.List;
 
 public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecyclerViewAdapter.ViewHolder> {
 
-    private List<Content>mTrackList=new ArrayList<>();
-    public MyTrackRecyclerViewAdapter (List<Content>mTrackList){
-        this.mTrackList=mTrackList;
+    private List<Content> mTrackList = new ArrayList<>();
+
+    public MyTrackRecyclerViewAdapter(List<Content> mTrackList) {
+        this.mTrackList = mTrackList;
     }
-    class ViewHolder extends RecyclerView.ViewHolder{
+
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView trackImage;
         TextView trackAuthor;
@@ -32,15 +34,16 @@ public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecy
 
         public ViewHolder(View itemView) {
             super(itemView);
-            trackImage=(ImageView)itemView.findViewById(R.id.track_image);
-            trackAuthor=(TextView)itemView.findViewById(R.id.tarck_id);
-            trackTitle=(TextView)itemView.findViewById(R.id.track_title);
+            trackImage = (ImageView) itemView.findViewById(R.id.track_image);
+            trackAuthor = (TextView) itemView.findViewById(R.id.tarck_id);
+            trackTitle = (TextView) itemView.findViewById(R.id.track_title);
         }
     }
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_track_item,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_track_item, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +56,7 @@ public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecy
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Content content=mTrackList.get(position);
+        Content content = mTrackList.get(position);
         holder.trackImage.setImageResource(content.getImageID());
         holder.trackAuthor.setText(content.getAuthor());
         holder.trackTitle.setText(content.getTitle());

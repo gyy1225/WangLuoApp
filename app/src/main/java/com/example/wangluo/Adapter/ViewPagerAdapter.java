@@ -8,25 +8,20 @@ package com.example.wangluo.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
-
  * ViewPagerAdapter
-
  */
-
 
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
-
     private final List<Fragment> mFragmentList = new ArrayList<>();
-
 
 
     public ViewPagerAdapter(FragmentManager manager) {
@@ -34,7 +29,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(manager);
 
     }
-
 
 
     @Override
@@ -46,7 +40,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-
     @Override
 
     public int getCount() {
@@ -56,13 +49,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
 
-
     public void addFragment(Fragment fragment) {
 
         mFragmentList.add(fragment);
 
     }
-
 
 
 }

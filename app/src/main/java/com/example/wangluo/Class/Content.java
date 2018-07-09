@@ -22,6 +22,7 @@ public class Content {
     }
 
     private String webres;
+
     public String getResource() {
         return resource;
     }

@@ -29,34 +29,35 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-   private RankFragment rankFragment;
-   private TrackFragment trackFragment;
-   private ReferFragment referFragment;
-   private Fragment[] fragments;
-   private int lastShowFragment=0;
-   private FragmentManager fragmentManager;
-   private FragmentTransaction transaction;
-   private ViewPager viewPager;
-   private BottomNavigationView navigation;
-   private MenuItem menuItem;
-   private MenuItem prevMenuItem;
+    private RankFragment rankFragment;
+    private TrackFragment trackFragment;
+    private ReferFragment referFragment;
+    private Fragment[] fragments;
+    private int lastShowFragment = 0;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+    private ViewPager viewPager;
+    private BottomNavigationView navigation;
+    private MenuItem menuItem;
+    private MenuItem prevMenuItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        navigation= (BottomNavigationView) findViewById(R.id.navigation);
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(3);
         initView();
     }
 
     private void initView() {
         //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             BottomNavigationViewHelper.disableShiftMode(navigation);
         }
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
 
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
 
 
                 switch (item.getItemId()) {
@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -118,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
 
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
             @Override
 
             public void onPageScrollStateChanged(int state) {
@@ -148,8 +147,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-       //禁止ViewPager滑动
+        //禁止ViewPager滑动
 
         viewPager.setOnTouchListener(new View.OnTouchListener() {
 

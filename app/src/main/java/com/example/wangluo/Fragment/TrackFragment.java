@@ -1,20 +1,19 @@
 package com.example.wangluo.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.wangluo.Adapter.MyReferRecyclerViewAdapter;
-import com.example.wangluo.Adapter.MyTrackRecyclerViewAdapter;
-import com.example.wangluo.Class.Content;
+import com.example.wangluo.Adapter.TabFragmentAdapter;
+import com.example.wangluo.Adapter.TrackTabFragmentAdapter;
 import com.example.wangluo.R;
-import com.example.wangluo.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,11 @@ import java.util.List;
  */
 public class TrackFragment extends Fragment {
 
-   private List<Content> mTrackList=new ArrayList<>();
+    private List<TrackListFragment> mTrackList = new ArrayList<>();
+    private View view;
+    private TabLayout tab_track;
+    private ViewPager vp_track;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,21 +39,36 @@ public class TrackFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_track_list, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.track_list);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        mTrackList=initRecyclerView();
-        MyTrackRecyclerViewAdapter myTrackRecyclerViewAdapter=new MyTrackRecyclerViewAdapter(mTrackList);
-        recyclerView.setAdapter(myTrackRecyclerViewAdapter);
+        view = inflater.inflate(R.layout.fragment_track_list, container, false);
+        //RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.track_list);
+        tab_track = view.findViewById(R.id.tab_track);
+        vp_track = view.findViewById(R.id.vp_track);
+        vp_track.setCurrentItem(0);
+        vp_track.setOffscreenPageLimit(2);
+       /* LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);*/
+        initViewPager(view);
         return view;
     }
-private List<Content> initRecyclerView(){
-        Content content1=new Content();
-        content1.setId("微博博主");
-        content1.setContent("最近更新内容");
-        mTrackList.add(content1);
-        return mTrackList;
-}
+
+    private void initViewPager(View view) {
+        List<String> titles = new ArrayList<>();
+        titles.add("         微博博主        ");
+        titles.add("         知乎答主        ");
+        titles.add("         其他用户       ");
+        List<TrackListFragment> fragments = new ArrayList<>();
+        //初始化它
+        for (int i = 0; i <= 2; i++) {
+            tab_track.addTab(tab_track.newTab().setText(titles.get(i)));
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", i);
+            TrackListFragment fragment = new TrackListFragment();
+            fragment.setArguments(bundle);
+            fragments.add(fragment);
+        }
+        vp_track.setAdapter(new TrackTabFragmentAdapter(getChildFragmentManager(), fragments, titles));
+        tab_track.setupWithViewPager(vp_track);
+
+    }
 
 }

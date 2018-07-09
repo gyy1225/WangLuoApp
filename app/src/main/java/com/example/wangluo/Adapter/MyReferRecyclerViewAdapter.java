@@ -19,10 +19,12 @@ import java.util.List;
 
 public class MyReferRecyclerViewAdapter extends RecyclerView.Adapter<MyReferRecyclerViewAdapter.ViewHolder> {
     private List<Content> mReferList;
-    public MyReferRecyclerViewAdapter(List<Content>mReferList){
-        this.mReferList=mReferList;
+
+    public MyReferRecyclerViewAdapter(List<Content> mReferList) {
+        this.mReferList = mReferList;
     }
-    class ViewHolder extends RecyclerView.ViewHolder{
+
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView referImage;
         TextView referTitle;
@@ -32,16 +34,17 @@ public class MyReferRecyclerViewAdapter extends RecyclerView.Adapter<MyReferRecy
 
         public ViewHolder(View itemView) {
             super(itemView);
-            referImage=(ImageView)itemView.findViewById(R.id.refer_image);
-            referContent=(TextView)itemView.findViewById(R.id.refer_content);
-            referTitle=(TextView)itemView.findViewById(R.id.refer_title);
-            referResource=(TextView)itemView.findViewById(R.id.refer_resource);
+            referImage = (ImageView) itemView.findViewById(R.id.refer_image);
+            referContent = (TextView) itemView.findViewById(R.id.refer_content);
+            referTitle = (TextView) itemView.findViewById(R.id.refer_title);
+            referResource = (TextView) itemView.findViewById(R.id.refer_resource);
         }
     }
+
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_refer_item,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_refer_item, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +55,8 @@ public class MyReferRecyclerViewAdapter extends RecyclerView.Adapter<MyReferRecy
     }
 
     @Override
-    public void onBindViewHolder( ViewHolder holder, int position) {
-        Content content=mReferList.get(position);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Content content = mReferList.get(position);
         holder.referImage.setImageResource(content.getImageID());
         holder.referTitle.setText(content.getTitle());
         holder.referContent.setText(content.getContent());
