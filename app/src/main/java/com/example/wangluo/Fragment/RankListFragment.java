@@ -74,6 +74,11 @@ private Handler handler= new Handler(){
                 myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(tiebaContentList);
                 recyclerView.setAdapter(myRankRecyclerViewAdapter);
                 break;
+            case 4:
+                myRankRecyclerViewAdapter.notifyDataSetChanged();
+                myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(yuleContentList);
+                recyclerView.setAdapter(myRankRecyclerViewAdapter);
+                break;
             case 0:
                 Toast.makeText(mContext, "服务器连接错误", Toast.LENGTH_SHORT).show();
                 myRankRecyclerViewAdapter= new MyRankRecyclerViewAdapter(rankContentList);
@@ -125,7 +130,7 @@ private Handler handler= new Handler(){
                     break;
                 case 5:
                     imageView.setImageResource(R.drawable.dongmanlogo);
-
+                    sendRequestWithOkHttp("http://haojie06.me:9999/get?hotmedias",4);
                     break;
                 case 6:
                     imageView.setImageResource(R.drawable.csdn3);
@@ -218,6 +223,7 @@ private Handler handler= new Handler(){
 //              content1.setImageID(Integer.parseInt(contents[6]));
                 //  content1.setTitle(mContent);
                 rankContentList.add(content1);
+                break;
                 //综艺动漫小说
                 case "热门综艺":
                 case "热门动漫":
@@ -229,7 +235,8 @@ private Handler handler= new Handler(){
                     content1.setContentURL(contents[4]);
 //              content1.setImageID(Integer.parseInt(contents[6]));
                     //  content1.setTitle(mContent);
-                    rankContentList.add(content1);
+                    yuleContentList.add(content1);
+                    break;
                     //微博
                 case "微博热搜":
                     content1.setResource(str);
