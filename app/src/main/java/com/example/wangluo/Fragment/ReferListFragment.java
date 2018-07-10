@@ -47,8 +47,7 @@ public class ReferListFragment extends Fragment {
 
             switch (msg.what) {
                 case 1:
-                    MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext,mReferList);
-                    recyclerView.setAdapter(myReferRecyclerViewAdapter);
+
                     break;
                 default:
 
@@ -65,11 +64,17 @@ public class ReferListFragment extends Fragment {
         this.mContext = getActivity();
         mPosition = getArguments().getInt("position");
         initList(mPosition);
+        MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext,mReferList);
+        recyclerView.setAdapter(myReferRecyclerViewAdapter);
         return view;
     }
     public List<Content> initList(int mPosition) {
+        Content content1=new Content();
+        //"技术""科技"娱乐""生活""体育""军事""游戏"动漫"其他"
         switch (mPosition) {
             case 0:
+                content1.setTitle("CSDN");
+                content1.setImageID("R.drawable.csdn3");
 
         }
         return mReferList;

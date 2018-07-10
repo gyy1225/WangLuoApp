@@ -41,16 +41,13 @@ private Context mContext;
 
         ImageView referImage;
         TextView referTitle;
-        TextView referContent;
-        TextView referResource;
+
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             referImage = (ImageView) itemView.findViewById(R.id.refer_image);
-            referContent = (TextView) itemView.findViewById(R.id.refer_content);
             referTitle = (TextView) itemView.findViewById(R.id.refer_title);
-            referResource = (TextView) itemView.findViewById(R.id.refer_resource);
         }
     }
 
@@ -72,8 +69,6 @@ private Context mContext;
         Content content = mReferList.get(position);
         Glide.with(mContext).load(content.getImageID()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.referImage);
         holder.referTitle.setText(content.getTitle());
-        holder.referContent.setText(content.getContent());
-        holder.referResource.setText(content.getResource());
     }
 
 

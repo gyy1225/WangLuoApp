@@ -82,11 +82,14 @@ public class ReferFragment extends Fragment {
 
     private void initViewPager(View view) {
         List<String> titles = new ArrayList<>();
-        titles.add("首页");
+        titles.add("技术");
         titles.add("科技");
-        titles.add("学习");
         titles.add("娱乐");
         titles.add("生活");
+        titles.add("体育");
+        titles.add("军事");
+        titles.add("游戏");
+        titles.add("动漫");
         titles.add("其他");
         List<ReferListFragment> fragments = new ArrayList<>();
         //初始化它

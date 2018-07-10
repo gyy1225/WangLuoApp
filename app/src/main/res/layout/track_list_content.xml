@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/track_fresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_track_list"
         android:name="com.example.wangluo.TrackFragment"
@@ -13,6 +18,7 @@
         app:layoutManager="LinearLayoutManager"
         tools:context="com.example.wangluo.Fragment.TrackFragment"
         tools:listitem="@layout/fragment_track_item" />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/track_add"
         android:layout_alignParentBottom="true"

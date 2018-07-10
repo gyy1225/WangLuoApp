@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/refer_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="150dp" />
 
         <TextView
             android:id="@+id/refer_title"
@@ -26,21 +26,7 @@
             android:text="title"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/refer_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="content"
-            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/refer_resource"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="end"
-            android:text="resource" />
 
         <View
             android:layout_width="match_parent"
