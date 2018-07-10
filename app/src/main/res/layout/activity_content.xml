@@ -5,14 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wangluo.Activity.ContentActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/content_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#FFebd1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:visibility="visible" />
     <WebView
         android:id="@+id/web_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </WebView>
-
+    </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/content_collection"
         android:layout_width="wrap_content"
@@ -20,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="15dp"
-        android:background="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/baseline_grade_white_18dp"
         app:elevation="8dp" />
 </RelativeLayout>

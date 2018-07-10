@@ -4,7 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.wangluo.Adapter.MyReferRecyclerViewAdapter;
+import com.example.wangluo.Adapter.ReferTabFragmentAdapter;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 import com.example.wangluo.dummy.DummyContent;
@@ -35,11 +38,9 @@ public class ReferFragment extends Fragment {
 
     private List<Content> mReferList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private ViewPager vp_refer;
+    private TabLayout tab_refer;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ReferFragment() {
     }
 
@@ -70,44 +71,38 @@ public class ReferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_refer_list, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.refer_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
-        //mReferList=initRecyclerView();
-        sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews");
+        vp_refer = view.findViewById(R.id.vp_refer);
+        tab_refer = view.findViewById(R.id.tab_refer);
+        initViewPager(view);
         return view;
 
     }
 
-
-    private void sendRequestWithOkHttp(final String url) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    OkHttpClient mOkHttpClient = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            .url(url)
-                            .build();
-                    Response response = mOkHttpClient.newCall(request).execute();
-                    String responseData = response.body().string();
-                    showResponse(responseData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+    private void initViewPager(View view) {
+        List<String> titles = new ArrayList<>();
+        titles.add("首页");
+        titles.add("科技");
+        titles.add("学习");
+        titles.add("娱乐");
+        titles.add("生活");
+        titles.add("其他");
+        List<ReferListFragment> fragments = new ArrayList<>();
+        //初始化它
+        for (int i = 0; i < titles.size(); i++) {
+            tab_refer.addTab(tab_refer.newTab().setText(titles.get(i)));
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", i);
+            ReferListFragment fragment = new ReferListFragment();
+            fragment.setArguments(bundle);
+            fragments.add(fragment);
+        }
+        vp_refer.setAdapter(new ReferTabFragmentAdapter(getChildFragmentManager(), fragments, titles));
+        tab_refer.setupWithViewPager(vp_refer);
 
     }
 
-    private void showResponse(String response) {
-        Content content = new Content();
-        content.setTitle(response);
-        mReferList.add(content);
-
-        Message message = new Message();
-        message.what = 1;
-        handler.sendMessage(message);
-    }
 }
+
+
+
+

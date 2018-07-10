@@ -5,21 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <WebView
-        android:id="@+id/refer_web"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp">
-
-    </WebView>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/refer_list"
-        android:name="com.example.wangluo.ReferFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.wangluo.Fragment.ReferFragment"
-        tools:listitem="@layout/fragment_refer_item" />
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_refer"
+            style="@style/MyCustomTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable">
+
+        </android.support.design.widget.TabLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimaryDark" />
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_refer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <include
+            layout="@layout/refer_list_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>
