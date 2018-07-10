@@ -69,7 +69,7 @@ public class RankFragment extends Fragment {
         tab_rank = (TabLayout) view.findViewById(R.id.tab_rank);
         vp_rank = (ViewPager) view.findViewById(R.id.vp_rank);
         vp_rank.setCurrentItem(0);
-        vp_rank.setOffscreenPageLimit(4);
+        vp_rank.setOffscreenPageLimit(3);
         initRecyclerView(view);
 
         vp_rank.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

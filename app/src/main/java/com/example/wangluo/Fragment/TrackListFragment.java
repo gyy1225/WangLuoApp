@@ -1,6 +1,7 @@
 package com.example.wangluo.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.wangluo.Activity.AddActivity;
 import com.example.wangluo.Adapter.MyTrackRecyclerViewAdapter;
 import com.example.wangluo.Adapter.MyTrackRecyclerViewAdapter;
 import com.example.wangluo.Class.Content;
@@ -38,12 +40,13 @@ public class TrackListFragment extends Fragment {
     private RecyclerView recyclerView;
     private int mPosition;
     private MyTrackRecyclerViewAdapter myTrackRecyclerViewAdapter;
-    private List<Content> TrackContentList=new ArrayList<>();
-    private List<Content> weiboTrackList=new ArrayList<>();
-    private List<Content> zhihuTrackList=new ArrayList<>();
-    private List<Content> shipinTrackList=new ArrayList<>();
-    private List<Content> dongmanTrackList=new ArrayList<>();
-    private List<Content> xiaoshuoTrackList=new ArrayList<>();
+    private List<Content> TrackContentList = new ArrayList<>();
+    private List<Content> weiboTrackList = new ArrayList<>();
+    private List<Content> zhihuTrackList = new ArrayList<>();
+    private List<Content> shipinTrackList = new ArrayList<>();
+    private List<Content> dongmanTrackList = new ArrayList<>();
+    private List<Content> xiaoshuoTrackList = new ArrayList<>();
+    private FloatingActionButton addButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,16 +60,28 @@ public class TrackListFragment extends Fragment {
 
             switch (msg.what) {
                 case 1:
-                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext,weiboTrackList);
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, weiboTrackList);
                     recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                     break;
                 case 2:
-                     myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext,zhihuTrackList);
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, zhihuTrackList);
+                    recyclerView.setAdapter(myTrackRecyclerViewAdapter);
+                    break;
+                case 3:
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, shipinTrackList);
+                    recyclerView.setAdapter(myTrackRecyclerViewAdapter);
+                    break;
+                case 4:
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, dongmanTrackList);
+                    recyclerView.setAdapter(myTrackRecyclerViewAdapter);
+                    break;
+                case 5:
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, xiaoshuoTrackList);
                     recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                     break;
                 case 0:
                     Toast.makeText(mContext, "服务器连接错误", Toast.LENGTH_SHORT).show();
-                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext,TrackContentList);
+                    myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, TrackContentList);
                     recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                 default:
 
@@ -74,6 +89,7 @@ public class TrackListFragment extends Fragment {
         }
 
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewContent = inflater.inflate(R.layout.track_list_content, container, false);
@@ -81,24 +97,58 @@ public class TrackListFragment extends Fragment {
         recyclerView = (RecyclerView) viewContent.findViewById(R.id.rv_track_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        addButton=viewContent.findViewById(R.id.track_add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(viewContent.getContext(), AddActivity.class);
+                intent.putExtra("POSITION",mPosition);
+                startActivity(intent);
+
+            }
+        });
         mPosition = getArguments().getInt("position");
+       removeList();
         initList(mPosition);
+
+       /* if(viewContent.getParent()==null) {
+            initList(mPosition);
+        }*/
         return viewContent;
+    }
+
+    public void removeList(){
+        weiboTrackList.clear();
+        zhihuTrackList.clear();
+        shipinTrackList.clear();
+        dongmanTrackList.clear();
+        xiaoshuoTrackList.clear();
     }
     public void initList(int mPosition) {
         switch (mPosition) {
             case 0:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=1",1);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=1", 1);
                 break;
             case 1:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?zhihu,id=1",2);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?zhihu,id=1", 2);
+                break;
+            case 2:
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",3);
+                break;
+            case 3:
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",4);
+                break;
+            case 4:
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",5);
                 break;
             default:
 
         }
 
     }
-    private void sendRequestWithOkHttp(final String url,final int i) {
+
+    private void sendRequestWithOkHttp(final String url, final int i) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -109,7 +159,7 @@ public class TrackListFragment extends Fragment {
                             .build();
                     Response response = mOkHttpClient.newCall(request).execute();
                     String responseData = response.body().string();
-                    showResponse(responseData,i);
+                    showResponse(responseData, i);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -118,7 +168,7 @@ public class TrackListFragment extends Fragment {
 
     }
 
-    private void showResponse(String response,int i) {
+    private void showResponse(String response, int i) {
         String content[] = response.split("', '");
         String contents[] = new String[100];
 
@@ -132,7 +182,6 @@ public class TrackListFragment extends Fragment {
                 case "新浪微博":
                     content1.setResource(str);
                     content1.setId(contents[1]);
-
                     content1.setImageID(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
@@ -145,9 +194,40 @@ public class TrackListFragment extends Fragment {
                     content1.setImageID(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
-                    content1.setTitle(contents[5]+"   “"+contents[6]+"”");
+                    content1.setTitle(contents[5] + "   “" + contents[6] + "”");
                     zhihuTrackList.add(content1);
                     break;
+                case "腾讯视频":
+                    content1.setResource(str);
+               //     content1.setId(contents[1]);
+                    content1.setAuthor(contents[1]);
+                    content1.setImageID(contents[2]);
+                    content1.setContentURL(contents[3]);
+                    content1.setTitle(contents[5]);
+                    shipinTrackList.add(content1);
+                    break;
+                case "腾讯漫画":
+                    content1.setResource(str);
+                    content1.setId(contents[1]);
+                    content1.setImageID(contents[2]);
+                    content1.setTitleURL(contents[3]);
+                    content1.setContentURL(contents[4]);
+
+                    content1.setAuthor(contents[1]+"    by"+contents[6]);
+                    content1.setTitle("最近更新:  "+contents[5]+"            更新时间：  "+contents[7]);
+                    dongmanTrackList.add(content1);
+                    break;
+                case "起点中文网":
+                    content1.setResource(str);
+                   // content1.setId(contents[1]);
+                    String str2=contents[2].replace("\\r","");
+                    content1.setImageID(str2);
+                    content1.setAuthor(contents[1]+"  by  "+contents[6]);
+                    content1.setContentURL(contents[4]);
+                    content1.setTitle("最近更新：  "+contents[5]);
+                    xiaoshuoTrackList.add(content1);
+                    break;
+                default:
             }
 
         }

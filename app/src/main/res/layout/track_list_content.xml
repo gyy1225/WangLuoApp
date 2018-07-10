@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,4 +13,14 @@
         app:layoutManager="LinearLayoutManager"
         tools:context="com.example.wangluo.Fragment.TrackFragment"
         tools:listitem="@layout/fragment_track_item" />
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/track_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/text_margin"
+        app:elevation="8dp"
+        app:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/outline_add_white_18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

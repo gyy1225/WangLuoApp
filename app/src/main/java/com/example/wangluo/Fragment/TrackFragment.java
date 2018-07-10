@@ -1,5 +1,6 @@
 package com.example.wangluo.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.wangluo.Activity.AddActivity;
 import com.example.wangluo.Adapter.TabFragmentAdapter;
 import com.example.wangluo.Adapter.TrackTabFragmentAdapter;
 import com.example.wangluo.R;
@@ -30,7 +32,6 @@ public class TrackFragment extends Fragment {
     private View view;
     private TabLayout tab_track;
     private ViewPager vp_track;
-    private FloatingActionButton addButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +45,8 @@ public class TrackFragment extends Fragment {
         tab_track = view.findViewById(R.id.tab_track);
         vp_track = view.findViewById(R.id.vp_track);
         vp_track.setCurrentItem(0);
-        vp_track.setOffscreenPageLimit(2);
-        addButton=view.findViewById(R.id.track_add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        vp_track.setOffscreenPageLimit(3);
 
-                
-            }
-        });
         initViewPager(view);
         return view;
     }
@@ -62,7 +56,7 @@ public class TrackFragment extends Fragment {
         titles.add("微博博主 ");
         titles.add("知乎答主 ");
         titles.add("腾讯视频 ");
-        titles.add("腾讯动漫");
+        titles.add("腾讯漫画");
         titles.add("起点小说");
         List<TrackListFragment> fragments = new ArrayList<>();
         //初始化它

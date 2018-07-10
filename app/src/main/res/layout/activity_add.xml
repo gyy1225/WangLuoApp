@@ -34,8 +34,7 @@ eg:1623886424"
     <EditText
         android:id="@+id/add_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="请在此输入UID" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"

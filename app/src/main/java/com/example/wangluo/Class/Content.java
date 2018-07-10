@@ -12,6 +12,15 @@ public class Content {
     private String imageID;
     private String contentURL;
     private String resource;
+    private String titleURL;
+
+    public String getTitleURL() {
+        return titleURL;
+    }
+
+    public void setTitleURL(String titleURL) {
+        this.titleURL = titleURL;
+    }
 
     public String getWebres() {
         return webres;
