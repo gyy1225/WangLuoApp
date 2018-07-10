@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +44,7 @@ public class TrackListFragment extends Fragment {
     private List<Content> shipinTrackList=new ArrayList<>();
     private List<Content> dongmanTrackList=new ArrayList<>();
     private List<Content> xiaoshuoTrackList=new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +145,7 @@ public class TrackListFragment extends Fragment {
                     content1.setImageID(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
-                    content1.setTitle(contents[5]);
+                    content1.setTitle(contents[5]+"   “"+contents[6]+"”");
                     zhihuTrackList.add(content1);
                     break;
             }

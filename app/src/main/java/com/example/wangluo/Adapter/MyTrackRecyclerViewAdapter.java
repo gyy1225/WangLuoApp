@@ -1,6 +1,7 @@
 package com.example.wangluo.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.wangluo.Activity.ContentActivity;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 
@@ -48,7 +50,7 @@ public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecy
         public ViewHolder(View itemView) {
             super(itemView);
             trackImage = (ImageView) itemView.findViewById(R.id.track_image);
-            trackAuthor = (TextView) itemView.findViewById(R.id.tarck_id);
+            trackAuthor = (TextView) itemView.findViewById(R.id.track_id);
             trackTitle = (TextView) itemView.findViewById(R.id.track_title);
         }
     }
@@ -60,7 +62,12 @@ public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecy
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int position = holder.getAdapterPosition();
+                Content content = mTrackList.get(position);
+                String contenturl = content.getContentURL();
+                Intent intent = new Intent(mContext, ContentActivity.class);
+                intent.putExtra("URL", contenturl);
+                mContext.startActivity(intent);
             }
         });
         return holder;

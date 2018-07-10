@@ -1,6 +1,7 @@
 package com.example.wangluo.Fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -29,7 +30,7 @@ public class TrackFragment extends Fragment {
     private View view;
     private TabLayout tab_track;
     private ViewPager vp_track;
-
+    private FloatingActionButton addButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +41,18 @@ public class TrackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_track_list, container, false);
-        //RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.track_list);
         tab_track = view.findViewById(R.id.tab_track);
         vp_track = view.findViewById(R.id.vp_track);
         vp_track.setCurrentItem(0);
         vp_track.setOffscreenPageLimit(2);
-       /* LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);*/
+        addButton=view.findViewById(R.id.track_add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                
+            }
+        });
         initViewPager(view);
         return view;
     }

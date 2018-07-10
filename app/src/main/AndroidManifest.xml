@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.SplashActivity" />
-        <activity android:name=".Activity.ContentActivity"></activity>
-
+        <activity android:name=".Activity.ContentActivity" />
+        <activity android:name=".Activity.AddActivity"></activity>
     </application>
 
 </manifest>
