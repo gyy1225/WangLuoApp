@@ -175,23 +175,127 @@ break;
                 新浪娱乐http://ent.sina.com.cn/
                 网易娱乐http://ent.163.com/*/
                 content1.setTitle("腾讯娱乐");
-                content1.setImageID2(R.drawable.douban3);
+                content1.setImageID2(R.drawable.tengxunyule);
                 content1.setContentURL("https://new.qq.com/ch/ent/");
                 mReferList.add(content1);
                 content2.setTitle("橘子娱乐");
-                content2.setImageID2(R.drawable.shiguangwang2);
+                content2.setImageID2(R.drawable.juziyule);
                 content2.setContentURL("http://www.happyjuzi.com/");
                 mReferList.add(content2);
                 content3.setTitle("新浪娱乐");
-                content3.setImageID2(R.drawable.taopp2);
+                content3.setImageID2(R.drawable.xinlangyule);
                 content3.setContentURL("http://ent.sina.com.cn/");
                 mReferList.add(content3);
                 content4.setTitle("网易娱乐");
-                content4.setImageID2(R.drawable.aiqiyi2);
+                content4.setImageID2(R.drawable.wangyiyule);
                 content4.setContentURL("http://ent.163.com/");
                 mReferList.add(content4);
                 break;
-
+            case 4:/*生活
+            什么值得买：https://www.smzdm.com/list/
+          豆瓣同城 https://www.douban.com/location/wuhan/
+           58同城 http://wh.58.com/
+           美食天下https://www.meishichina.com/
+           智联招聘https://www.zhaopin.com/
+          大众点评http://www.dianping.com/
+          口碑http://www.dianping.com/
+          携程http://www.ctrip.com/
+          途牛http://www.tuniu.com/
+          百度糯米https://wh.nuomi.com/
+            */
+                content1.setTitle("什么值得买");
+                content1.setImageID2(R.drawable.shenmezhidemai);
+                content1.setContentURL("https://www.smzdm.com/list/");
+                mReferList.add(content1);
+                content2.setTitle("豆瓣同城");
+                content2.setImageID2(R.drawable.doubantongcheng);
+                content2.setContentURL("https://www.douban.com/location/wuhan/");
+                mReferList.add(content2);
+                content3.setTitle("58同城");
+                content3.setImageID2(R.drawable.tongcheng58);
+                content3.setContentURL("http://wh.58.com/");
+                mReferList.add(content3);
+                content4.setTitle("美食天下");
+                content4.setImageID2(R.drawable.meishitianxia);
+                content4.setContentURL("https://www.meishichina.com/");
+                mReferList.add(content4);
+                content5.setTitle("智联招聘");
+                content5.setImageID2(R.drawable.zhilianzhaopin);
+                content5.setContentURL("https://www.zhaopin.com/");
+                mReferList.add(content5);
+                content6.setTitle("大众点评");
+                content6.setImageID2(R.drawable.dazhongdianping);
+                content6.setContentURL("http://www.dianping.com/");
+                mReferList.add(content6);
+                content7.setTitle("口碑");
+                content7.setImageID2(R.drawable.koubei);
+                content7.setContentURL("http://www.dianping.com/");
+                mReferList.add(content7);
+                content8.setTitle("携程");
+                content8.setImageID2(R.drawable.xiecheng);
+                content8.setContentURL("http://www.ctrip.com/");
+                mReferList.add(content8);
+                content9.setTitle("途牛");
+                content9.setImageID2(R.drawable.tuniu);
+                content9.setContentURL("http://www.tuniu.com/");
+                mReferList.add(content9);
+                content10.setTitle("百度糯米");
+                content10.setImageID2(R.drawable.baidunuomi);
+                content10.setContentURL("https://wh.nuomi.com/");
+                mReferList.add(content10);
+                break;
+            case 5:/*学业
+              中国知网http://www.cnki.net/
+           万方数据库http://www.wanfangdata.com.cn/index.html
+          维基百科https://www.wikipedia.org/
+          中国期刊网http://www.chinaqking.com/
+          维普网http://www.cqvip.com/
+          百度学术http://xueshu.baidu.com
+         Web of Science http://apps.webofknowledge.com/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=8DYP1JypHSZIYkMvSZy&preferencesSaved=
+        Springer Link https://link.springer.com/
+        Engineering Village  https://www.engineeringvillage.com/search/quick.url
+        Wiley Online Library https://onlinelibrary.wiley.com/*/
+                content1.setTitle("中国知网");
+                content1.setImageID2(R.drawable.zhongguozhiwang4);
+                content1.setContentURL("http://www.cnki.net/");
+                mReferList.add(content1);
+                content2.setTitle("万方数据库");
+                content2.setImageID2(R.drawable.wanfang);
+                content2.setContentURL("http://www.wanfangdata.com.cn/index.html");
+                mReferList.add(content2);
+                content3.setTitle("维基百科");
+                content3.setImageID2(R.drawable.wiki);
+                content3.setContentURL("https://www.wikipedia.org/");
+                mReferList.add(content3);
+                content4.setTitle("中国期刊网");
+                content4.setImageID2(R.drawable.zhongguoqikan);
+                content4.setContentURL("http://www.chinaqking.com/");
+                mReferList.add(content4);
+                content5.setTitle("维普网");
+                content5.setImageID2(R.drawable.weipu);
+                content5.setContentURL("http://www.cqvip.com/");
+                mReferList.add(content5);
+                content6.setTitle("Web of Science");
+                content6.setImageID2(R.drawable.webofscience);
+                content6.setContentURL("http://apps.webofknowledge.com/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=8DYP1JypHSZIYkMvSZy&preferencesSaved=" );
+                mReferList.add(content6);
+                content7.setTitle("Springer Link");
+                content7.setImageID2(R.drawable.springerlink);
+                content7.setContentURL("https://link.springer.com/");
+                mReferList.add(content7);
+                content8.setTitle("Engineering Village");
+                content8.setImageID2(R.drawable.engineeringvillage);
+                content8.setContentURL("https://www.engineeringvillage.com/search/quick.url");
+                mReferList.add(content8);
+                content9.setTitle("Wiley Online Library ");
+                content9.setImageID2(R.drawable.wiley);
+                content9.setContentURL("https://onlinelibrary.wiley.com/");
+                mReferList.add(content9);
+                content10.setTitle("百度学术");
+                content10.setImageID2(R.drawable.baiduxueshu);
+                content10.setContentURL("http://xueshu.baidu.com");
+                mReferList.add(content10);
+                break;
         }
         return mReferList;
     }
