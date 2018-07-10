@@ -8,9 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <ImageView
@@ -22,7 +19,8 @@
             android:id="@+id/refer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
             android:text="title"
             android:textSize="20sp" />
 

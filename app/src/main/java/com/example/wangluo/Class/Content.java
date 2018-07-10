@@ -13,6 +13,15 @@ public class Content {
     private String contentURL;
     private String resource;
     private String titleURL;
+    private int imageID2;
+
+    public int getImageID2() {
+        return imageID2;
+    }
+
+    public void setImageID2(int imageID2) {
+        this.imageID2 = imageID2;
+    }
 
     public String getTitleURL() {
         return titleURL;

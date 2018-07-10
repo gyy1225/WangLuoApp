@@ -67,8 +67,9 @@ private Context mContext;
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Content content = mReferList.get(position);
-        Glide.with(mContext).load(content.getImageID()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.referImage);
+        //Glide.with(mContext).load(content.getImageID2()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.referImage);
         holder.referTitle.setText(content.getTitle());
+        holder.referImage.setImageResource(content.getImageID2());
     }
 
 
