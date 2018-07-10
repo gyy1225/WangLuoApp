@@ -1,6 +1,7 @@
 package com.example.wangluo.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.wangluo.Activity.ContentActivity;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 
@@ -58,7 +60,12 @@ private Context mContext;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int position = holder.getAdapterPosition();
+                Content content = mReferList.get(position);
+                String contenturl = content.getContentURL();
+                Intent intent = new Intent(mContext, ContentActivity.class);
+                intent.putExtra("URL", contenturl);
+                mContext.startActivity(intent);
             }
         });
         return holder;

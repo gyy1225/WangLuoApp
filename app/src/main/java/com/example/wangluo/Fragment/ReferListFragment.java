@@ -174,9 +174,10 @@ break;
                 腾讯娱乐https://new.qq.com/ch/ent/
                 新浪娱乐http://ent.sina.com.cn/
                 网易娱乐http://ent.163.com/*/
-                content1.setTitle("腾讯娱乐");
-                content1.setImageID2(R.drawable.tengxunyule);
-                content1.setContentURL("https://new.qq.com/ch/ent/");
+                content1.setTitle("搜狐娱乐");
+                content1.setImageID2(R.drawable.souhuyule);
+                content1.setContentURL("http://yule.sohu.com/");
+                //content1.setContentURL("https://new.qq.com/ch/ent/");
                 mReferList.add(content1);
                 content2.setTitle("橘子娱乐");
                 content2.setImageID2(R.drawable.juziyule);
@@ -296,6 +297,54 @@ break;
                 content10.setContentURL("http://xueshu.baidu.com");
                 mReferList.add(content10);
                 break;
+            case 6:
+                /*运动  腾讯体育 http://sports.qq.com/
+ 篮球：虎扑 https://nba.hupu.com/
+ 体坛网http://www.titan24.com/
+ 凤凰网体育http://sports.ifeng.com/
+ 央视网体育http://sports.cctv.com/
+ 新浪体育http://2018.sina.com.cn/*/
+                content1.setTitle("腾讯体育");
+                content1.setImageID2(R.drawable.tengxuntiyu);
+                content1.setContentURL("http://sports.qq.com/");
+                mReferList.add(content1);
+                content2.setTitle("虎扑");
+                content2.setImageID2(R.drawable.hupu);
+                content2.setContentURL("https://nba.hupu.com/");
+                mReferList.add(content2);
+                content3.setTitle("体坛网");
+                content3.setImageID2(R.drawable.titan);
+                content3.setContentURL("http://www.titan24.com/");
+                mReferList.add(content3);
+                content4.setTitle("凤凰网体育");
+                content4.setImageID2(R.drawable.fenghuangwangtiyu);
+                content4.setContentURL("http://sports.ifeng.com/");
+                mReferList.add(content4);
+                content5.setTitle("央视网体育");
+                content5.setImageID2(R.drawable.yangshitiyu);
+                content5.setContentURL("http://sports.cctv.com/");
+                mReferList.add(content5);
+                content6.setTitle("新浪体育");
+                content6.setImageID2(R.drawable.xinlangtiyu);
+                content6.setContentURL("http://2018.sina.com.cn/");
+                mReferList.add(content6);
+                break;
+                /*邮箱 网易163https://mail.163.com/
+       新浪邮箱https://mail.sina.com.cn/
+       126邮箱https://www.126.com/
+        qq邮箱https://mail.qq.com/
+        Gmailhttps://www.google.com/intl/zh-CN/gmail/about/
+华科有关 官网https://www.google.com/intl/zh-CN/gmail/about/
+                智慧华中大https://pass.hust.edu.cn/cas/login?service=http%3A%2F         %2Fone.hust.edu.cn%2Fdcp%2Findex.jsp
+               华科图书馆 http://www.lib.hust.edu.cn/
+              华科邮箱https://mail.hust.edu.cn/
+              华科学工系统http://student.hust.edu.cn/
+              物理预约http://115.156.215.251/
+               物理实验BBShttp://115.156.215.251/bbs/
+医药 万方医学网http://med.wanfangdata.com.cn/
+        好大夫在线https://www.haodf.com/
+        医学论坛网http://www.cmt.com.cn/
+        丁香园http://www.dxy.cn/*/
         }
         return mReferList;
     }

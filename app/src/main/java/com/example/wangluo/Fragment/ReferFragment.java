@@ -89,10 +89,10 @@ public class ReferFragment extends Fragment {
         titles.add("生活");
         titles.add("学业");
         titles.add("体育");
-        titles.add("邮箱");
-        titles.add("华科");
         titles.add("游戏");
         titles.add("动漫");
+        titles.add("邮箱");
+        titles.add("华科");
         titles.add("其他");
         List<ReferListFragment> fragments = new ArrayList<>();
         //初始化它
