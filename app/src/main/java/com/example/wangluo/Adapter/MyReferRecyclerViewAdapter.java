@@ -1,5 +1,6 @@
 package com.example.wangluo.Adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 
@@ -19,8 +22,18 @@ import java.util.List;
 
 public class MyReferRecyclerViewAdapter extends RecyclerView.Adapter<MyReferRecyclerViewAdapter.ViewHolder> {
     private List<Content> mReferList;
+private Context mContext;
 
-    public MyReferRecyclerViewAdapter(List<Content> mReferList) {
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public MyReferRecyclerViewAdapter(Context context,List<Content> mReferList) {
+        this.mContext=context;
         this.mReferList = mReferList;
     }
 
@@ -57,7 +70,7 @@ public class MyReferRecyclerViewAdapter extends RecyclerView.Adapter<MyReferRecy
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Content content = mReferList.get(position);
-        holder.referImage.setImageResource(content.getImageID());
+        Glide.with(mContext).load(content.getImageID()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.referImage);
         holder.referTitle.setText(content.getTitle());
         holder.referContent.setText(content.getContent());
         holder.referResource.setText(content.getResource());

@@ -53,12 +53,14 @@ public class TrackFragment extends Fragment {
 
     private void initViewPager(View view) {
         List<String> titles = new ArrayList<>();
-        titles.add("         微博博主        ");
-        titles.add("         知乎答主        ");
-        titles.add("         其他用户       ");
+        titles.add("微博博主 ");
+        titles.add("知乎答主 ");
+        titles.add("腾讯视频 ");
+        titles.add("腾讯动漫");
+        titles.add("起点小说");
         List<TrackListFragment> fragments = new ArrayList<>();
         //初始化它
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <titles.size(); i++) {
             tab_track.addTab(tab_track.newTab().setText(titles.get(i)));
             Bundle bundle = new Bundle();
             bundle.putInt("position", i);

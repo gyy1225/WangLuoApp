@@ -1,5 +1,6 @@
 package com.example.wangluo.Adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 
@@ -21,8 +24,18 @@ import java.util.List;
 public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecyclerViewAdapter.ViewHolder> {
 
     private List<Content> mTrackList = new ArrayList<>();
+    private Context mContext;
 
-    public MyTrackRecyclerViewAdapter(List<Content> mTrackList) {
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public MyTrackRecyclerViewAdapter(Context context,List<Content> mTrackList) {
+        this.mContext=context;
         this.mTrackList = mTrackList;
     }
 
@@ -57,7 +70,7 @@ public class MyTrackRecyclerViewAdapter extends RecyclerView.Adapter<MyTrackRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Content content = mTrackList.get(position);
-        holder.trackImage.setImageResource(content.getImageID());
+        Glide.with(mContext).load(content.getImageID()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.trackImage);
         holder.trackAuthor.setText(content.getAuthor());
         holder.trackTitle.setText(content.getTitle());
     }

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_track"
             style="@style/MyCustomTabLayout"
@@ -21,16 +19,16 @@
         </android.support.design.widget.TabLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorPrimaryDark" />
-    </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/vp_track"
+        android:background="@color/colorPrimaryDark" />
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_track"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tab_track"
         android:layout_weight="1">
 
         <include
@@ -38,14 +36,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.v4.view.ViewPager>
-
+</LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/track_add"
-        android:layout_gravity="bottom|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/text_margin"
         app:elevation="8dp"
         app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/outline_add_white_18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-</LinearLayout>
+</RelativeLayout>

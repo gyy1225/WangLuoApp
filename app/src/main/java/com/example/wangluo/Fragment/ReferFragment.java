@@ -40,6 +40,7 @@ public class ReferFragment extends Fragment {
     private RecyclerView recyclerView;
     private ViewPager vp_refer;
     private TabLayout tab_refer;
+    private Context mContext;
 
     public ReferFragment() {
     }
@@ -57,7 +58,7 @@ public class ReferFragment extends Fragment {
 
             switch (msg.what) {
                 case 1:
-                    MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mReferList);
+                    MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext,mReferList);
                     recyclerView.setAdapter(myReferRecyclerViewAdapter);
                     break;
                 default:
@@ -71,6 +72,7 @@ public class ReferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_refer_list, container, false);
+        mContext = getActivity();
         vp_refer = view.findViewById(R.id.vp_refer);
         tab_refer = view.findViewById(R.id.tab_refer);
         initViewPager(view);

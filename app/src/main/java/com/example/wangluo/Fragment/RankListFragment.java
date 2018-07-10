@@ -85,6 +85,7 @@ public class RankListFragment extends Fragment {
                     Toast.makeText(mContext, "服务器连接错误", Toast.LENGTH_SHORT).show();
                     myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),rankContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
+                    break;
                 default:
 
             }

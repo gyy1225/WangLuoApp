@@ -9,7 +9,7 @@ public class Content {
     private String title;
     private String author;
     private String content;
-    private int imageID;
+    private String imageID;
     private String contentURL;
     private String resource;
 
@@ -64,11 +64,11 @@ public class Content {
         this.content = content;
     }
 
-    public int getImageID() {
+    public String getImageID() {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
+    public void setImageID(String imageID) {
         this.imageID = imageID;
     }
 

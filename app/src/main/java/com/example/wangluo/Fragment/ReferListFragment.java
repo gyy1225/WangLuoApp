@@ -1,5 +1,6 @@
 package com.example.wangluo.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,8 @@ import okhttp3.Response;
 public class ReferListFragment extends Fragment {
     private List<Content> mReferList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private Context mContext;
+    private int mPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class ReferListFragment extends Fragment {
 
             switch (msg.what) {
                 case 1:
-                    MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mReferList);
+                    MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext,mReferList);
                     recyclerView.setAdapter(myReferRecyclerViewAdapter);
                     break;
                 default:
@@ -59,11 +62,18 @@ public class ReferListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.refer_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        //mReferList=initRecyclerView();
-        sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews");
-        return  view;
+        this.mContext = getActivity();
+        mPosition = getArguments().getInt("position");
+        initList(mPosition);
+        return view;
     }
+    public List<Content> initList(int mPosition) {
+        switch (mPosition) {
+            case 0:
 
+        }
+        return mReferList;
+    }
 
     private void sendRequestWithOkHttp(final String url) {
         new Thread(new Runnable() {
