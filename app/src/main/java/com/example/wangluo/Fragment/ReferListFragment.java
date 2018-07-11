@@ -64,6 +64,7 @@ public class ReferListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         this.mContext = getActivity();
         mPosition = getArguments().getInt("position");
+        mReferList.clear();
         initList(mPosition);
         MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext, mReferList);
         recyclerView.setAdapter(myReferRecyclerViewAdapter);
@@ -105,7 +106,7 @@ public class ReferListFragment extends Fragment {
                 content5.setContentURL("http://www.sciencenet.cn/");
                 mReferList.add(content5);
                 content6.setTitle("natureAsia");
-                content6.setImageID2(R.drawable.natureasia);
+                content6.setImageID2(R.drawable.natureaisa1);
                 content6.setContentURL("http://www.natureasia.com/");
                 mReferList.add(content6);
                 content7.setTitle("中华自然科学网");
@@ -131,7 +132,7 @@ public class ReferListFragment extends Fragment {
                 content4.setImageID2(R.drawable.aiqiyi2);
                 content4.setContentURL("http://www.iqiyi.com/dianying/");
                 mReferList.add(content4);
-break;
+                break;
             case 2:
                 /*每日一文 https://meiriyiwen.com/
                 豆瓣读书 https://book.douban.com/
@@ -278,7 +279,7 @@ break;
                 mReferList.add(content5);
                 content6.setTitle("Web of Science");
                 content6.setImageID2(R.drawable.webofscience);
-                content6.setContentURL("http://apps.webofknowledge.com/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=8DYP1JypHSZIYkMvSZy&preferencesSaved=" );
+                content6.setContentURL("http://apps.webofknowledge.com/UA_GeneralSearch_input.do?product=UA&search_mode=GeneralSearch&SID=8DYP1JypHSZIYkMvSZy&preferencesSaved=");
                 mReferList.add(content6);
                 content7.setTitle("Springer Link");
                 content7.setImageID2(R.drawable.springerlink);
@@ -329,18 +330,145 @@ break;
                 content6.setContentURL("http://2018.sina.com.cn/");
                 mReferList.add(content6);
                 break;
+            case 7:/*游戏板块: 游戏折扣，上架 ,游戏新闻 
+               steam官网https://store.steampowered.com/
+                游戏时光  http://www.vgtime.com/s/steam/
+                腾讯游戏http://game.qq.com/
+                17173https://www.17173.com/
+                游民星空http://www.gamersky.com/
+                多玩游戏网http://www.duowan.com/
+                 电玩巴士http://www.tgbus.com/*/
+                content1.setTitle("steam官网");
+                content1.setImageID2(R.drawable.steam);
+                content1.setContentURL("https://store.steampowered.com/");
+                mReferList.add(content1);
+                content2.setTitle("游戏时光");
+                content2.setImageID2(R.drawable.youxishiguang);
+                content2.setContentURL("http://www.vgtime.com/s/steam/");
+                mReferList.add(content2);
+                content3.setTitle("腾讯游戏");
+                content3.setImageID2(R.drawable.tengxunyouxi);
+                content3.setContentURL("http://game.qq.com/");
+                mReferList.add(content3);
+                content4.setTitle("17173");
+                content4.setImageID2(R.drawable.youxi17173);
+                content4.setContentURL("https://www.17173.com/");
+                mReferList.add(content4);
+                content5.setTitle("游民星空");
+                content5.setImageID2(R.drawable.youminxibngkong3);
+                content5.setContentURL("http://www.gamersky.com/");
+                mReferList.add(content5);
+                content6.setTitle("多玩游戏网");
+                content6.setImageID2(R.drawable.duowanyouxi);
+                content6.setContentURL("http://www.duowan.com/");
+                mReferList.add(content6);
+                content7.setTitle("电玩巴士");
+                content7.setImageID2(R.drawable.dianwanbashi);
+                content7.setContentURL("http://www.tgbus.com/");
+                mReferList.add(content7);
+                break;
+            case 8:/*动漫 网易漫画https://manhua.163.com/
+        有妖气 http://www.u17.com/
+        快看漫画http://www.kuaikanmanhua.com/
+        腾讯动漫http://ac.qq.com/
+        动漫之家http://donghua.dmzj.com/
+        bilibilihttps://www.bilibili.com/
+        niconicohttp://www.nicovideo.jp/*/
+                content1.setTitle("网易漫画");
+                content1.setImageID2(R.drawable.wangyimanhua);
+                content1.setContentURL("https://manhua.163.com/");
+                mReferList.add(content1);
+                content2.setTitle("有妖气");
+                content2.setImageID2(R.drawable.youyaoqi1);
+                content2.setContentURL("http://www.u17.com/");
+                mReferList.add(content2);
+                content3.setTitle("快看漫画");
+                content3.setImageID2(R.drawable.kuaikanmanhua);
+                content3.setContentURL("http://www.kuaikanmanhua.com/");
+                mReferList.add(content3);
+                content4.setTitle("腾讯动漫");
+                content4.setImageID2(R.drawable.tengxundongman);
+                content4.setContentURL("http://ac.qq.com/");
+                mReferList.add(content4);
+                content5.setTitle("动漫之家");
+                content5.setImageID2(R.drawable.dongmanzhijia);
+                content5.setContentURL("http://donghua.dmzj.com/");
+                mReferList.add(content5);
+                content6.setTitle("bilibili");
+                content6.setImageID2(R.drawable.bilibili);
+                content6.setContentURL("https://www.bilibili.com/");
+                mReferList.add(content6);
+                content7.setTitle("niconico");
+                content7.setImageID2(R.drawable.niconico2);
+                content7.setContentURL("http://www.nicovideo.jp/");
+                mReferList.add(content7);
+                break;
+            case 9:
                 /*邮箱 网易163https://mail.163.com/
        新浪邮箱https://mail.sina.com.cn/
        126邮箱https://www.126.com/
         qq邮箱https://mail.qq.com/
-        Gmailhttps://www.google.com/intl/zh-CN/gmail/about/
-华科有关 官网https://www.google.com/intl/zh-CN/gmail/about/
+        Gmailhttps://www.google.com/intl/zh-CN/gmail/about/*/
+                content1.setTitle("网易163");
+                content1.setImageID2(R.drawable.wangyiyouxiang2);
+                content1.setContentURL("https://mail.163.com/");
+                mReferList.add(content1);
+                content2.setTitle("新浪邮箱");
+                content2.setImageID2(R.drawable.xinlangyouxiang2);
+                content2.setContentURL("https://mail.sina.com.cn/");
+                mReferList.add(content2);
+                content3.setTitle("126邮箱");
+                content3.setImageID2(R.drawable.wangyi126);
+                content3.setContentURL("https://www.126.com/");
+                mReferList.add(content3);
+                content4.setTitle("qq邮箱");
+                content4.setImageID2(R.drawable.youxiangqq2);
+                content4.setContentURL("https://mail.qq.com/");
+                mReferList.add(content4);
+                content5.setTitle("Gmail");
+                content5.setImageID2(R.drawable.gmail2);
+                content5.setContentURL("https://www.google.com/intl/zh-CN/gmail/about/");
+                mReferList.add(content5);
+                break;
+            case 10:
+                /*
+华科有关 官网http://www.hust.edu.cn/
                 智慧华中大https://pass.hust.edu.cn/cas/login?service=http%3A%2F         %2Fone.hust.edu.cn%2Fdcp%2Findex.jsp
                华科图书馆 http://www.lib.hust.edu.cn/
               华科邮箱https://mail.hust.edu.cn/
               华科学工系统http://student.hust.edu.cn/
               物理预约http://115.156.215.251/
-               物理实验BBShttp://115.156.215.251/bbs/
+               物理实验BBShttp://115.156.215.251/bbs/*/
+                 content1.setTitle("官网");
+                content1.setImageID2(R.drawable.huake1);
+                content1.setContentURL("http://www.hust.edu.cn/");
+                mReferList.add(content1);
+                content2.setTitle("智慧华中大");
+                content2.setImageID2(R.drawable.youyaoqi1);
+                content2.setContentURL("https://pass.hust.edu.cn/cas/login?service=http%3A%2F%2Fone.hust.edu.cn%2Fdcp%2Findex.jsp");
+                mReferList.add(content2);
+                content3.setTitle("华科图书馆");
+                content3.setImageID2(R.drawable.kuaikanmanhua);
+                content3.setContentURL("http://www.lib.hust.edu.cn/");
+                mReferList.add(content3);
+                content4.setTitle("华科邮箱");
+                content4.setImageID2(R.drawable.tengxundongman);
+                content4.setContentURL("https://mail.hust.edu.cn/");
+                mReferList.add(content4);
+                content5.setTitle("华科学工系统");
+                content5.setImageID2(R.drawable.dongmanzhijia);
+                content5.setContentURL("http://student.hust.edu.cn/");
+                mReferList.add(content5);
+                content6.setTitle("物理预约");
+                content6.setImageID2(R.drawable.bilibili);
+                content6.setContentURL("http://115.156.215.251/");
+                mReferList.add(content6);
+                content7.setTitle("物理实验BBS");
+                content7.setImageID2(R.drawable.niconico2);
+                content7.setContentURL("http://115.156.215.251/bbs/");
+                mReferList.add(content7);
+                break;
+                 /*
 医药 万方医学网http://med.wanfangdata.com.cn/
         好大夫在线https://www.haodf.com/
         医学论坛网http://www.cmt.com.cn/

@@ -67,19 +67,19 @@ public class AddActivity extends AppCompatActivity {
 //position    0:微博，1：知乎，2：腾讯视频，3：腾讯漫画，4：起点小说
                 switch (position) {
                     case 0:
-                        sendRequestWithOkHttp("http://haojie06.me:9999/add?sinablog,id=1,uid=" + UID);
+                        sendRequestWithOkHttp("http://haojie06.me:9999/add?sinablog,id=3,uid=" + UID);
                         break;
                     case 1:
-                        sendRequestWithOkHttp("http://haojie06.me:9999/add?zhihu,id=1,uid=" + UID);
+                        sendRequestWithOkHttp("http://haojie06.me:9999/add?zhihu,id=3,uid=" + UID);
                         break;
                     case 2:
-                        sendRequestWithOkHttp("http://haojie06.me:9999/add?tv,id=1,uid=" + UID);
+                        sendRequestWithOkHttp("http://haojie06.me:9999/add?tv,id=3,uid=" + UID);
                         break;
                     case 3:
-                        sendRequestWithOkHttp("http://haojie06.me:9999/add?anime,id=1,uid=" + UID);
+                        sendRequestWithOkHttp("http://haojie06.me:9999/add?anime,id=3,uid=" + UID);
                         break;
                     case 4:
-                        sendRequestWithOkHttp("http://haojie06.me:9999/add?novel,id=1,uid=" + UID);
+                        sendRequestWithOkHttp("http://haojie06.me:9999/add?novel,id=3,uid=" + UID);
                         break;
                 }
             }

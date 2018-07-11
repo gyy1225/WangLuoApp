@@ -22,7 +22,14 @@ import com.example.wangluo.Adapter.MyTrackRecyclerViewAdapter;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +46,7 @@ public class TrackListFragment extends Fragment {
     private Context mContext;
     private RecyclerView recyclerView;
     private int mPosition;
+    private String KEY = new String();
     private MyTrackRecyclerViewAdapter myTrackRecyclerViewAdapter;
     private List<Content> TrackContentList = new ArrayList<>();
     private List<Content> weiboTrackList = new ArrayList<>();
@@ -79,8 +87,11 @@ public class TrackListFragment extends Fragment {
                     myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, xiaoshuoTrackList);
                     recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                     break;
+                case 6:
+                    Toast.makeText(mContext, "成功添加用户！", Toast.LENGTH_SHORT).show();
+                    break;
                 case 0:
-                    Toast.makeText(mContext, "服务器连接错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "服务器连接错误！", Toast.LENGTH_SHORT).show();
                     myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, TrackContentList);
                     recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                 default:
@@ -97,19 +108,22 @@ public class TrackListFragment extends Fragment {
         recyclerView = (RecyclerView) viewContent.findViewById(R.id.rv_track_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        addButton=viewContent.findViewById(R.id.track_add);
+        addButton = viewContent.findViewById(R.id.track_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(viewContent.getContext(), AddActivity.class);
-                intent.putExtra("POSITION",mPosition);
+                Intent intent = new Intent(viewContent.getContext(), AddActivity.class);
+                intent.putExtra("POSITION", mPosition);
                 startActivity(intent);
 
             }
         });
         mPosition = getArguments().getInt("position");
-       removeList();
+        saveKey();
+        removeList();
+        KEY="3";
+        judgeKey();
         initList(mPosition);
 
        /* if(viewContent.getParent()==null) {
@@ -118,29 +132,37 @@ public class TrackListFragment extends Fragment {
         return viewContent;
     }
 
-    public void removeList(){
+    public void judgeKey() {
+        if (KEY == null) {
+            sendKeyOkhhtpRequest();
+            saveKey();
+        } else loadKey();
+    }
+
+    public void removeList() {
         weiboTrackList.clear();
         zhihuTrackList.clear();
         shipinTrackList.clear();
         dongmanTrackList.clear();
         xiaoshuoTrackList.clear();
     }
+
     public void initList(int mPosition) {
         switch (mPosition) {
             case 0:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=1", 1);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=3" , 1);
                 break;
             case 1:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?zhihu,id=1", 2);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?zhihu,id=3", 2);
                 break;
             case 2:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",3);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 3);
                 break;
             case 3:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",4);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 4);
                 break;
             case 4:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=1",5);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 5);
                 break;
             default:
 
@@ -199,7 +221,7 @@ public class TrackListFragment extends Fragment {
                     break;
                 case "腾讯视频":
                     content1.setResource(str);
-               //     content1.setId(contents[1]);
+                    //     content1.setId(contents[1]);
                     content1.setAuthor(contents[1]);
                     content1.setImageID(contents[2]);
                     content1.setContentURL(contents[3]);
@@ -213,18 +235,18 @@ public class TrackListFragment extends Fragment {
                     content1.setTitleURL(contents[3]);
                     content1.setContentURL(contents[4]);
 
-                    content1.setAuthor(contents[1]+"    by"+contents[6]);
-                    content1.setTitle("最近更新:  "+contents[5]+"            更新时间：  "+contents[7]);
+                    content1.setAuthor(contents[1] + "    by" + contents[6]);
+                    content1.setTitle("最近更新:  " + contents[5] + "            更新时间：  " + contents[7]);
                     dongmanTrackList.add(content1);
                     break;
                 case "起点中文网":
                     content1.setResource(str);
-                   // content1.setId(contents[1]);
-                    String str2=contents[2].replace("\\r","");
+                    // content1.setId(contents[1]);
+                    String str2 = contents[2].replace("\\r", "");
                     content1.setImageID(str2);
-                    content1.setAuthor(contents[1]+"  by  "+contents[6]);
+                    content1.setAuthor(contents[1] + "  by  " + contents[6]);
                     content1.setContentURL(contents[4]);
-                    content1.setTitle("最近更新：  "+contents[5]);
+                    content1.setTitle("最近更新：  " + contents[5]);
                     xiaoshuoTrackList.add(content1);
                     break;
                 default:
@@ -253,6 +275,78 @@ public class TrackListFragment extends Fragment {
         }
 
         handler.sendMessage(message);
+    }
+
+    public void saveKey() {
+        FileOutputStream outputStream = null;
+        BufferedWriter writer = null;
+        try {
+            outputStream = mContext.openFileOutput("KEY", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+            try {
+                writer.write(KEY);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    public void loadKey() {
+        FileInputStream inputStream = null;
+        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
+        try {
+            inputStream = mContext.openFileInput("KEY");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            KEY = reader.readLine();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void sendKeyOkhhtpRequest() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient mOkHttpClient = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("http://haojie06.me:9999/get?newkey")
+                            .build();
+                    Response response = mOkHttpClient.newCall(request).execute();
+                    String responseData = response.body().string();
+                    KEY = responseData;
+                    Message message=new Message();
+                    message.what=6;
+                    handler.sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
 
