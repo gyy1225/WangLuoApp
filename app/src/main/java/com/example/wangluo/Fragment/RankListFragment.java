@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class RankListFragment extends Fragment {
     private List<Content> yuleContentList = new ArrayList<>();
     private ImageView imageView;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
@@ -54,7 +56,7 @@ public class RankListFragment extends Fragment {
 
     private String str;
     private Context mContext;
-    private MyRankRecyclerViewAdapter myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),rankContentList);
+    private MyRankRecyclerViewAdapter myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), rankContentList);
     //private String responseData;
     private Handler handler = new Handler() {
 
@@ -63,27 +65,31 @@ public class RankListFragment extends Fragment {
             switch (msg.what) {
                 case 1:
                     myRankRecyclerViewAdapter.notifyDataSetChanged();
-                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),rankContentList);
+                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), rankContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
                     break;
                 case 2:
                     myRankRecyclerViewAdapter.notifyDataSetChanged();
-                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),weiboContentList);
+                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), weiboContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
                     break;
                 case 3:
                     myRankRecyclerViewAdapter.notifyDataSetChanged();
-                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),tiebaContentList);
+                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), tiebaContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
                     break;
                 case 4:
                     myRankRecyclerViewAdapter.notifyDataSetChanged();
-                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),yuleContentList);
+                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), yuleContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
+                    break;
+                case 5:
+                    Toast.makeText(mContext, "数据已刷新！", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
                     break;
                 case 0:
                     Toast.makeText(mContext, "服务器连接错误", Toast.LENGTH_SHORT).show();
-                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),rankContentList);
+                    myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(), rankContentList);
                     recyclerView.setAdapter(myRankRecyclerViewAdapter);
                     break;
                 default:
@@ -103,10 +109,33 @@ public class RankListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         mPosition = getArguments().getInt("position");
-
+        swipeRefreshLayout = viewContent.findViewById(R.id.rank_refesh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         imageView = (ImageView) viewContent.findViewById(R.id.rank_image);
+        removeList();
         initList(mPosition);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                removeList();
+                refreshList(mPosition);
+            }
+        });
         return viewContent;
+    }
+
+    private void removeList() {
+        rankContentList.clear();
+        tiebaContentList.clear();
+        yuleContentList.clear();
+        weiboContentList.clear();
+    }
+
+    private void refreshList(int position) {
+        initList(position);
+        Message message = new Message();
+        message.what = 5;
+        handler.sendMessage(message);
     }
 
     public List<Content> initList(int mPosition) {

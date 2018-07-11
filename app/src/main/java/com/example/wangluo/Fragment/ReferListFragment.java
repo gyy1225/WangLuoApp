@@ -440,31 +440,31 @@ public class ReferListFragment extends Fragment {
               物理预约http://115.156.215.251/
                物理实验BBShttp://115.156.215.251/bbs/*/
                  content1.setTitle("官网");
-                content1.setImageID2(R.drawable.huake1);
+                content1.setImageID2(R.drawable.huakeguanwang);
                 content1.setContentURL("http://www.hust.edu.cn/");
                 mReferList.add(content1);
                 content2.setTitle("智慧华中大");
-                content2.setImageID2(R.drawable.youyaoqi1);
+                content2.setImageID2(R.drawable.zhihuihuazhongda);
                 content2.setContentURL("https://pass.hust.edu.cn/cas/login?service=http%3A%2F%2Fone.hust.edu.cn%2Fdcp%2Findex.jsp");
                 mReferList.add(content2);
                 content3.setTitle("华科图书馆");
-                content3.setImageID2(R.drawable.kuaikanmanhua);
+                content3.setImageID2(R.drawable.huaketushuguan);
                 content3.setContentURL("http://www.lib.hust.edu.cn/");
                 mReferList.add(content3);
                 content4.setTitle("华科邮箱");
-                content4.setImageID2(R.drawable.tengxundongman);
+                content4.setImageID2(R.drawable.huakeyouxiang);
                 content4.setContentURL("https://mail.hust.edu.cn/");
                 mReferList.add(content4);
                 content5.setTitle("华科学工系统");
-                content5.setImageID2(R.drawable.dongmanzhijia);
+                content5.setImageID2(R.drawable.huakexuegong);
                 content5.setContentURL("http://student.hust.edu.cn/");
                 mReferList.add(content5);
                 content6.setTitle("物理预约");
-                content6.setImageID2(R.drawable.bilibili);
+                content6.setImageID2(R.drawable.huakedawu3);
                 content6.setContentURL("http://115.156.215.251/");
                 mReferList.add(content6);
                 content7.setTitle("物理实验BBS");
-                content7.setImageID2(R.drawable.niconico2);
+                content7.setImageID2(R.drawable.huakewulibbs);
                 content7.setContentURL("http://115.156.215.251/bbs/");
                 mReferList.add(content7);
                 break;

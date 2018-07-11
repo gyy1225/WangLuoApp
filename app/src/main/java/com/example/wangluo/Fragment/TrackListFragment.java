@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class TrackListFragment extends Fragment {
     private List<Content> dongmanTrackList = new ArrayList<>();
     private List<Content> xiaoshuoTrackList = new ArrayList<>();
     private FloatingActionButton addButton;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,10 @@ public class TrackListFragment extends Fragment {
                 case 6:
                     Toast.makeText(mContext, "成功添加用户！", Toast.LENGTH_SHORT).show();
                     break;
+                case 7:
+                    Toast.makeText(mContext, "数据已刷新！", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
                 case 0:
                     Toast.makeText(mContext, "服务器连接错误！", Toast.LENGTH_SHORT).show();
                     myTrackRecyclerViewAdapter = new MyTrackRecyclerViewAdapter(mContext, TrackContentList);
@@ -108,6 +114,9 @@ public class TrackListFragment extends Fragment {
         recyclerView = (RecyclerView) viewContent.findViewById(R.id.rv_track_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        swipeRefreshLayout = viewContent.findViewById(R.id.track_fresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+
         addButton = viewContent.findViewById(R.id.track_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,10 +131,16 @@ public class TrackListFragment extends Fragment {
         mPosition = getArguments().getInt("position");
         saveKey();
         removeList();
-        KEY="3";
         judgeKey();
         initList(mPosition);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
+                removeList();
+                refreshList(mPosition);
+            }
+        });
        /* if(viewContent.getParent()==null) {
             initList(mPosition);
         }*/
@@ -136,7 +151,7 @@ public class TrackListFragment extends Fragment {
         if (KEY == null) {
             sendKeyOkhhtpRequest();
             saveKey();
-        } else loadKey();
+        } else ;
     }
 
     public void removeList() {
@@ -150,23 +165,31 @@ public class TrackListFragment extends Fragment {
     public void initList(int mPosition) {
         switch (mPosition) {
             case 0:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=3" , 1);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?sinablog,id=3", 1);
                 break;
             case 1:
                 sendRequestWithOkHttp("http://haojie06.me:9999/get?zhihu,id=3", 2);
                 break;
             case 2:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 3);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3", 3);
                 break;
             case 3:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 4);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3", 4);
                 break;
             case 4:
-                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3" , 5);
+                sendRequestWithOkHttp("http://haojie06.me:9999/get?followmedia,id=3", 5);
                 break;
             default:
 
         }
+
+    }
+
+    private void refreshList(int position) {
+        initList(position);
+        Message message = new Message();
+        message.what = 7;
+        handler.sendMessage(message);
 
     }
 
@@ -236,7 +259,7 @@ public class TrackListFragment extends Fragment {
                     content1.setContentURL(contents[4]);
 
                     content1.setAuthor(contents[1] + "    by" + contents[6]);
-                    content1.setTitle("最近更新:  " + contents[5] + "            更新时间：  " + contents[7]);
+                    content1.setTitle("最近更新:  " + contents[5] + "\n" + "更新时间：  " + contents[7]);
                     dongmanTrackList.add(content1);
                     break;
                 case "起点中文网":
@@ -339,8 +362,8 @@ public class TrackListFragment extends Fragment {
                     Response response = mOkHttpClient.newCall(request).execute();
                     String responseData = response.body().string();
                     KEY = responseData;
-                    Message message=new Message();
-                    message.what=6;
+                    Message message = new Message();
+                    message.what = 6;
                     handler.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
