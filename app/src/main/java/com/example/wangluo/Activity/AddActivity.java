@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,10 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         Intent intent = getIntent();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.content_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         position = intent.getIntExtra("POSITION", position);
         et_add = findViewById(R.id.add_edit);
         button_add = findViewById(R.id.add_button);
@@ -139,6 +144,7 @@ private void initView(){
         }
         return true;
     }
+
 }
 
 

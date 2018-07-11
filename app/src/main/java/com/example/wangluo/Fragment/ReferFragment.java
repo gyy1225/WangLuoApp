@@ -93,7 +93,7 @@ public class ReferFragment extends Fragment {
         titles.add("动漫");
         titles.add("邮箱");
         titles.add("华科");
-        titles.add("其他");
+        titles.add("自定义");
         List<ReferListFragment> fragments = new ArrayList<>();
         //初始化它
         for (int i = 0; i < titles.size(); i++) {

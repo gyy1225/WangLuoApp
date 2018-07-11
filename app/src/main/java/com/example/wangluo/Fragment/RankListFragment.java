@@ -159,7 +159,7 @@ public class RankListFragment extends Fragment {
                 sendRequestWithOkHttp("http://haojie06.me:9999/get?hotnews", 2);
                 break;
             case 4:
-                imageView.setImageResource(R.drawable.dianying2);
+                imageView.setImageResource(R.drawable.redian3);
 
                 sendRequestWithOkHttp("http://haojie06.me:9999/get?hotmedias", 1);
                 break;
@@ -220,7 +220,7 @@ public class RankListFragment extends Fragment {
                 //百度风云榜
                 case "百度风云榜实时热点":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setContentURL(contents[3]);
                     content1.setAuthor(contents[4]);
@@ -231,7 +231,7 @@ public class RankListFragment extends Fragment {
                     contents = mContent.split("\\$\\$");
                     content1.setWebres(str);
                     content1.setResource(contents[1]);
-                    content1.setId(contents[2]);
+                    content1.setGrade(contents[2]);
                     content1.setTitle(contents[3]);
                     content1.setAuthor(contents[4]);
                     content1.setContentURL(contents[5]);
@@ -241,7 +241,7 @@ public class RankListFragment extends Fragment {
                 //电影
                 case "热门电影":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
@@ -252,7 +252,7 @@ public class RankListFragment extends Fragment {
                 //电视剧
                 case "热门电视剧":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
@@ -265,7 +265,7 @@ public class RankListFragment extends Fragment {
                 case "热门动漫":
                 case "热门小说":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
@@ -276,7 +276,7 @@ public class RankListFragment extends Fragment {
                 //微博
                 case "微博热搜":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setContentURL(contents[3]);
                     content1.setAuthor(contents[4]);
@@ -285,7 +285,7 @@ public class RankListFragment extends Fragment {
                 //贴吧
                 case "贴吧实时热点":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setTitle(contents[2]);
                     content1.setContentURL(contents[3]);
                     content1.setAuthor(contents[4]);

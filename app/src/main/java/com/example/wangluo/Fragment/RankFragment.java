@@ -149,7 +149,7 @@ public class RankFragment extends Fragment {
         public void onTabSelected(TabLayout.Tab tab) {
 
             int mTag = (int) tab.getTag();
-            switch (mTag) {
+            /*switch (mTag) {
                 case 3:
                     Content content1 = new Content();
                     content1.setId("1");
@@ -158,7 +158,7 @@ public class RankFragment extends Fragment {
                     rankContentList.add(content1);
                     break;
                 default:
-            }
+            }*/
             MyRankRecyclerViewAdapter myRankRecyclerViewAdapter = new MyRankRecyclerViewAdapter(getContext(),rankContentList);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);

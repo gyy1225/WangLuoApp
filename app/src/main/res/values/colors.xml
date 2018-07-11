@@ -3,4 +3,16 @@
     <color name="colorPrimary">#ffc2a4</color>
     <color name="colorPrimaryDark">#feb97e</color>
     <color name="colorAccent">#ab4638</color>
-</resources>
+    <color name="orange_main">#ec6f1a</color>
+<color name="orange_light">#ffd39b</color>
+<color name="orange_deep">#ff6f3a</color>
+<color name="orange_most">#C76114</color>
+<color name="orange_litter">#80aa6136</color>
+    <color name="tv_gray_litter">#FAF0E6</color>
+    <color name="tv_gray_normal">#c0c0c0</color>
+    <color name="tv_gray_deep">#818181</color>
+    <color name="tv_gray_lit">#50b1b1b1</color>
+    <color name="tv_gray">@android:color/darker_gray</color>
+    <color name="tv_color">#ffffff</color>
+
+    </resources>

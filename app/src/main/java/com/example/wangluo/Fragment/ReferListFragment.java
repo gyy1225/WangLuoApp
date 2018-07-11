@@ -1,21 +1,32 @@
 package com.example.wangluo.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.wangluo.Activity.AddActivity;
+import com.example.wangluo.Activity.AddWebActivity;
 import com.example.wangluo.Adapter.MyReferRecyclerViewAdapter;
 import com.example.wangluo.Class.Content;
 import com.example.wangluo.R;
+
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +35,8 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by ASUS on 2018/7/10.
@@ -34,6 +47,14 @@ public class ReferListFragment extends Fragment {
     private RecyclerView recyclerView;
     private Context mContext;
     private int mPosition;
+    private Intent intent;
+    private int getPosition;
+    private String newWebURL;
+    private FloatingActionButton addWebButton;
+    private String newWebID;
+    private MyReferRecyclerViewAdapter myReferRecyclerViewAdapter;
+    private Content newContent = new Content();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +68,10 @@ public class ReferListFragment extends Fragment {
 
             switch (msg.what) {
                 case 1:
-
+                    Toast.makeText(mContext, "数据已刷新！", Toast.LENGTH_SHORT).show();
+                    myReferRecyclerViewAdapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(myReferRecyclerViewAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
                     break;
                 default:
 
@@ -58,17 +82,100 @@ public class ReferListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.refer_list_content, container, false);
+        final View view = inflater.inflate(R.layout.refer_list_content, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.refer_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        addWebButton = view.findViewById(R.id.refer_add);
+        addWebButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(view.getContext(), AddWebActivity.class);
+                intent.putExtra("POSITION", mPosition);
+                startActivityForResult(intent, 1);
+
+            }
+        });
+        intent = getActivity().getIntent();
+        getPosition = intent.getIntExtra("POSITION", getPosition);
+        newWebURL = intent.getStringExtra("NEWWEB");
+        newWebID = intent.getStringExtra("NEWWEBID");
         this.mContext = getActivity();
         mPosition = getArguments().getInt("position");
         mReferList.clear();
         initList(mPosition);
-        MyReferRecyclerViewAdapter myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext, mReferList);
+        loadSelfWeb();
+        LitePal.getDatabase();
+        if (newWebURL != null) {
+            Content content = new Content();
+            content.setImageID2(R.drawable.wangluo3);
+            content.setContentURL("http://" + newWebURL + "/");//http://www.dangdang.com/  http://www.dangdang.com/
+            content.setTitle(newWebID);
+            content.setmPosition(getPosition);
+            content.save();
+            mReferList.add(content);
+        }
+        swipeRefreshLayout = view.findViewById(R.id.refer_fresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                removeList();
+                refreshList(mPosition);
+            }
+        });
+        myReferRecyclerViewAdapter = new MyReferRecyclerViewAdapter(mContext, mReferList);
         recyclerView.setAdapter(myReferRecyclerViewAdapter);
         return view;
+    }
+
+    private void removeList() {
+        mReferList.clear();
+    }
+
+    private void refreshList(int position) {
+        initList(position);
+        loadSelfWeb();
+        Message message = new Message();
+        message.what = 1;
+        handler.sendMessage(message);
+
+    }
+//从数据库加载自定义网页
+    private void loadSelfWeb(){
+        List<Content>selfContents= LitePal.findAll(Content.class);
+        for (Content mContent:selfContents) {
+            int mPosition=mContent.getmPosition();
+            if (mContent.getContentURL() != null) {
+                newContent=mContent;
+                initList(mPosition);
+            }
+        }
+    }
+    //添加自定义网页用的
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    getPosition = intent.getIntExtra("POSITION", getPosition);
+                    newWebURL = intent.getStringExtra("NEWWEB");
+                    newWebID = intent.getStringExtra("NEWWEBID");
+                    if (newWebURL != null) {
+                        newContent.setImageID2(R.drawable.wangluo3);
+                        newContent.setContentURL("http://" + newWebURL + "/");//http://www.dangdang.com/  http://www.dangdang.com/
+                        newContent.setTitle(newWebID);
+                        mReferList.clear();
+                        initList(getPosition);
+                        myReferRecyclerViewAdapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(myReferRecyclerViewAdapter);
+                    }
+                }
+                break;
+
+            default:
+        }
     }
 
     public List<Content> initList(int mPosition) {
@@ -82,6 +189,7 @@ public class ReferListFragment extends Fragment {
         Content content8 = new Content();
         Content content9 = new Content();
         Content content10 = new Content();
+        Content content11=new Content();
         // "科技""电影""读书""娱乐""生活""学业""体育""邮箱""华科""游戏""动漫""其他"
         switch (mPosition) {
             case 0:
@@ -113,6 +221,9 @@ public class ReferListFragment extends Fragment {
                 content7.setImageID2(R.drawable.zhongguokexue);
                 content7.setContentURL("http://www.scicn.net/index.html");
                 mReferList.add(content7);
+                if (newWebURL != null) {
+                mReferList.add(newContent);
+            }
                 break;
 
             case 1:
@@ -132,6 +243,9 @@ public class ReferListFragment extends Fragment {
                 content4.setImageID2(R.drawable.aiqiyi2);
                 content4.setContentURL("http://www.iqiyi.com/dianying/");
                 mReferList.add(content4);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 2:
                 /*每日一文 https://meiriyiwen.com/
@@ -169,6 +283,9 @@ public class ReferListFragment extends Fragment {
                 content7.setImageID2(R.drawable.sanwenwang);
                 content7.setContentURL("https://www.sanwen.net/");
                 mReferList.add(content7);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 3:
                 /*橘子娱乐http://www.happyjuzi.com/
@@ -192,8 +309,12 @@ public class ReferListFragment extends Fragment {
                 content4.setImageID2(R.drawable.wangyiyule);
                 content4.setContentURL("http://ent.163.com/");
                 mReferList.add(content4);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 4:/*生活
+            蝉游记 http://chanyouji.com/trips#home-trips
             什么值得买：https://www.smzdm.com/list/
           豆瓣同城 https://www.douban.com/location/wuhan/
            58同城 http://wh.58.com/
@@ -205,9 +326,9 @@ public class ReferListFragment extends Fragment {
           途牛http://www.tuniu.com/
           百度糯米https://wh.nuomi.com/
             */
-                content1.setTitle("什么值得买");
-                content1.setImageID2(R.drawable.shenmezhidemai);
-                content1.setContentURL("https://www.smzdm.com/list/");
+                content1.setTitle("蝉游记");
+                content1.setImageID2(R.drawable.chanyouji);
+                content1.setContentURL("http://chanyouji.com/");
                 mReferList.add(content1);
                 content2.setTitle("豆瓣同城");
                 content2.setImageID2(R.drawable.doubantongcheng);
@@ -245,6 +366,13 @@ public class ReferListFragment extends Fragment {
                 content10.setImageID2(R.drawable.baidunuomi);
                 content10.setContentURL("https://wh.nuomi.com/");
                 mReferList.add(content10);
+                content11.setTitle("什么值得买");
+                content11.setImageID2(R.drawable.shenmezhidemai);
+                content11.setContentURL("https://www.smzdm.com/list/");
+                mReferList.add(content11);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 5:/*学业
               中国知网http://www.cnki.net/
@@ -297,6 +425,9 @@ public class ReferListFragment extends Fragment {
                 content10.setImageID2(R.drawable.baiduxueshu);
                 content10.setContentURL("http://xueshu.baidu.com");
                 mReferList.add(content10);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 6:
                 /*运动  腾讯体育 http://sports.qq.com/
@@ -329,6 +460,9 @@ public class ReferListFragment extends Fragment {
                 content6.setImageID2(R.drawable.xinlangtiyu);
                 content6.setContentURL("http://2018.sina.com.cn/");
                 mReferList.add(content6);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 7:/*游戏板块: 游戏折扣，上架 ,游戏新闻 
                steam官网https://store.steampowered.com/
@@ -366,6 +500,9 @@ public class ReferListFragment extends Fragment {
                 content7.setImageID2(R.drawable.dianwanbashi);
                 content7.setContentURL("http://www.tgbus.com/");
                 mReferList.add(content7);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 8:/*动漫 网易漫画https://manhua.163.com/
         有妖气 http://www.u17.com/
@@ -402,6 +539,9 @@ public class ReferListFragment extends Fragment {
                 content7.setImageID2(R.drawable.niconico2);
                 content7.setContentURL("http://www.nicovideo.jp/");
                 mReferList.add(content7);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 9:
                 /*邮箱 网易163https://mail.163.com/
@@ -429,6 +569,9 @@ public class ReferListFragment extends Fragment {
                 content5.setImageID2(R.drawable.gmail2);
                 content5.setContentURL("https://www.google.com/intl/zh-CN/gmail/about/");
                 mReferList.add(content5);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
                 break;
             case 10:
                 /*
@@ -439,7 +582,7 @@ public class ReferListFragment extends Fragment {
               华科学工系统http://student.hust.edu.cn/
               物理预约http://115.156.215.251/
                物理实验BBShttp://115.156.215.251/bbs/*/
-                 content1.setTitle("官网");
+                content1.setTitle("官网");
                 content1.setImageID2(R.drawable.huakeguanwang);
                 content1.setContentURL("http://www.hust.edu.cn/");
                 mReferList.add(content1);
@@ -467,6 +610,15 @@ public class ReferListFragment extends Fragment {
                 content7.setImageID2(R.drawable.huakewulibbs);
                 content7.setContentURL("http://115.156.215.251/bbs/");
                 mReferList.add(content7);
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
+                break;
+            case 11://自定义
+                if (newWebURL != null) {
+                    mReferList.add(newContent);
+                }
+                mReferList.add(newContent);
                 break;
                  /*
 医药 万方医学网http://med.wanfangdata.com.cn/

@@ -1,11 +1,16 @@
 package com.example.wangluo.Class;
 
+import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
+
+import java.io.Serializable;
+
 /**
  * Created by ASUS on 2018/7/4.
  */
 
-public class Content {
-    private String id;
+public class Content extends LitePalSupport implements Serializable{
+    private String grade;
     private String title;
     private String author;
     private String content;
@@ -14,6 +19,24 @@ public class Content {
     private String resource;
     private String titleURL;
     private int imageID2;
+    private String UID;
+    private int mPosition;
+
+    public int getmPosition() {
+        return mPosition;
+    }
+
+    public void setmPosition(int mPosition) {
+        this.mPosition = mPosition;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
 
     public int getImageID2() {
         return imageID2;
@@ -50,12 +73,12 @@ public class Content {
     }
 
 
-    public String getId() {
-        return id;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public String getTitle() {

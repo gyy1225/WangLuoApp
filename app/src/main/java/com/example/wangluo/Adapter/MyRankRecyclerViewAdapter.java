@@ -79,7 +79,7 @@ public class MyRankRecyclerViewAdapter extends RecyclerView.Adapter<MyRankRecycl
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setIsRecyclable(false);
         Content content = mContentList.get(position);
-        holder.tv_grade.setText(content.getId());
+        holder.tv_grade.setText(content.getGrade());
         holder.tv_title.setText(content.getTitle());
         holder.tv_author.setText(content.getAuthor());
         holder.tv_resource.setText(content.getResource());

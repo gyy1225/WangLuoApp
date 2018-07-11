@@ -48,6 +48,7 @@ public class TrackListFragment extends Fragment {
     private RecyclerView recyclerView;
     private int mPosition;
     private String KEY = new String();
+
     private MyTrackRecyclerViewAdapter myTrackRecyclerViewAdapter;
     private List<Content> TrackContentList = new ArrayList<>();
     private List<Content> weiboTrackList = new ArrayList<>();
@@ -119,6 +120,7 @@ public class TrackListFragment extends Fragment {
         swipeRefreshLayout = viewContent.findViewById(R.id.track_fresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
+        KEY="3";
         addButton = viewContent.findViewById(R.id.track_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,49 +230,51 @@ public class TrackListFragment extends Fragment {
             switch (str) {
                 case "新浪微博":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setUID(contents[1]);
                     content1.setImageID(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
-                    content1.setTitle(contents[5]);
+                    content1.setTitle("更新时间："+contents[6]+"\n"+contents[5]);
                     weiboTrackList.add(content1);
                     break;
                 case "知乎":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setUID(contents[1]);
                     content1.setImageID(contents[2]);
                     content1.setAuthor(contents[3]);
                     content1.setContentURL(contents[4]);
-                    content1.setTitle(contents[5] + "   “" + contents[6] + "”");
+                    content1.setTitle(contents[5] + "   “" + contents[6] + "”"+ "\n" + contents[7]);
                     zhihuTrackList.add(content1);
                     break;
                 case "腾讯视频":
                     content1.setResource(str);
-                    //     content1.setId(contents[1]);
+                    //     content1.setGrade(contents[1]);
                     content1.setAuthor(contents[1]);
                     content1.setImageID(contents[2]);
                     content1.setContentURL(contents[3]);
                     content1.setTitle(contents[5]);
+                    content1.setUID(contents[10]);
                     shipinTrackList.add(content1);
                     break;
                 case "腾讯漫画":
                     content1.setResource(str);
-                    content1.setId(contents[1]);
+                    content1.setGrade(contents[1]);
                     content1.setImageID(contents[2]);
                     content1.setTitleURL(contents[3]);
                     content1.setContentURL(contents[4]);
-
+                    content1.setUID(contents[10]);
                     content1.setAuthor(contents[1] + "    by" + contents[6]);
                     content1.setTitle("最近更新:  " + contents[5] + "\n" + "更新时间：  " + contents[7]);
                     dongmanTrackList.add(content1);
                     break;
                 case "起点中文网":
                     content1.setResource(str);
-                    // content1.setId(contents[1]);
+                    // content1.setGrade(contents[1]);
                     String str2 = contents[2].replace("\\r", "");
                     content1.setImageID(str2);
                     content1.setAuthor(contents[1] + "  by  " + contents[6]);
                     content1.setContentURL(contents[4]);
+                    content1.setUID(contents[10]);
                     content1.setTitle("最近更新：  " + contents[5]);
                     xiaoshuoTrackList.add(content1);
                     break;

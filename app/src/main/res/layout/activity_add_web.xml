@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.wangluo.Activity.AddActivity">
-
+    tools:context="com.example.wangluo.Activity.AddWebActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/content_toolbar"
         android:layout_width="match_parent"
@@ -18,32 +17,41 @@
         android:visibility="visible" />
 
     <ImageView
-        android:id="@+id/add_image"
+        android:id="@+id/addweb_image"
+        android:src="@drawable/wangluo2"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/text_margin"
         android:layout_marginBottom="@dimen/text_margin"
-        android:text="请输入要追踪的用户UID：
-eg:1623886424"
+        android:text="请输入要添加的网站名称"
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/add_edit"
+        android:id="@+id/addwebID_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:text="请输入要添加的网址
+eg:  www.dangdang.com  "
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/addweb_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/baseline_add_circle_black2_18dp"
-            android:layout_gravity="center"
-            />
-
+    <Button
+        android:id="@+id/addweb_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/baseline_add_circle_black2_18dp"
+        android:layout_gravity="center"
+        />
 </LinearLayout>

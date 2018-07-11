@@ -1,5 +1,6 @@
 package com.example.wangluo.Activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
@@ -24,6 +27,8 @@ import com.example.wangluo.Fragment.RankFragment;
 import com.example.wangluo.Fragment.ReferFragment;
 import com.example.wangluo.Fragment.TrackFragment;
 import com.example.wangluo.Utils.BottomNavigationViewHelper;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new ReferFragment());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+        //建立数据库
 
         //缓存3个页面，来解决点击“我的”回来，首页空白的问题，
         // 存在的问题，如果有的页面不需要缓存该如何自动刷新，可以利用eventbus传参来进行该页面的操作
@@ -163,11 +169,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar,menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 MainActivity.this.finish();
+                break;
+            case R.id.account:
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
         }
         return true;
     }
