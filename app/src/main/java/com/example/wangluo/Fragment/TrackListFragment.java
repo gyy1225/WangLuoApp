@@ -94,6 +94,8 @@ public class TrackListFragment extends Fragment {
                     break;
                 case 7:
                     Toast.makeText(mContext, "数据已刷新！", Toast.LENGTH_SHORT).show();
+                    myTrackRecyclerViewAdapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(myTrackRecyclerViewAdapter);
                     swipeRefreshLayout.setRefreshing(false);
                     break;
                 case 0:
