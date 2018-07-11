@@ -1,6 +1,7 @@
 package com.example.wangluo.Activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -342,7 +343,28 @@ public class LoginActivity extends AppCompatActivity
         mLoadingDialog.show();
     }
 
+    /**
+     * 圆形dialog
 
+    ProgressDialog mypDialog=new ProgressDialog(this);
+    //实例化
+            mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    //设置进度条风格，风格为圆形，旋转的
+            mypDialog.setTitle("Google");
+    //设置ProgressDialog 标题
+            mypDialog.setMessage(getResources().getString(R.string.second));
+    //设置ProgressDialog 提示信息
+            mypDialog.setIcon(R.drawable.android);
+    //设置ProgressDialog 标题图标
+            mypDialog.setButton("Google",this);
+    //设置ProgressDialog 的一个Button
+            mypDialog.setIndeterminate(false);
+    //设置ProgressDialog 的进度条是否不明确
+            mypDialog.setCancelable(true);
+    //设置ProgressDialog 是否可以按退回按键取消
+            mypDialog.show();
+    //让ProgressDialog显示
+     */
     /**
      * 隐藏加载的进度框
      */
