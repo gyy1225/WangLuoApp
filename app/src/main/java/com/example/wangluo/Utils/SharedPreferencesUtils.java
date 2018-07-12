@@ -13,7 +13,6 @@ public class SharedPreferencesUtils {
 
         /**
          * 这是一个SharePreference的根据类，使用它可以更方便的数据进行简单存储
-         * 这里只要知道基本调用方法就可以了
          * 1.通过构造方法来传入上下文和文件名
          * 2.通过putValue方法传入一个或多个自定义的ContentValue对象，进行数据存储
          * 3.通过get方法来获取数据

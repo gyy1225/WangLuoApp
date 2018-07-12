@@ -2,6 +2,8 @@ package com.example.wangluo.Activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -18,6 +20,12 @@ import android.view.View;
 import android.widget.*;
 import android.support.v7.widget.Toolbar;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 public class LoginActivity extends AppCompatActivity
         implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -29,6 +37,7 @@ public class LoginActivity extends AppCompatActivity
     private CheckBox checkBox_login;
     private ImageView iv_see_password;
     private Toolbar toolbar;
+    private String mResponse;
 
     private Dialog mLoadingDialog; //显示正在加载的对话框
 
@@ -165,6 +174,7 @@ public class LoginActivity extends AppCompatActivity
         SharedPreferencesUtils helper = new SharedPreferencesUtils(this, "setting");
         boolean first = helper.getBoolean("first", true);
         if (first) {
+
             //创建一个ContentVa对象（自定义的）设置不是第一次登录，,并创建记住密码和自动登录是默认不选，创建账号和密码为空
             helper.putValues(new SharedPreferencesUtils.ContentValue("first", false),
                     new SharedPreferencesUtils.ContentValue("remenberPassword", false),
@@ -180,7 +190,7 @@ public class LoginActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                loadUserName();    //无论如何保存一下用户名
+                loadUserName();    //保存用户名
                 login(); //登陆
                 break;
             case R.id.iv_see_password:
@@ -190,10 +200,7 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * 模拟登录情况
-     * 用户名gyy，密码123456，就能登录成功，否则登录失败
-     */
+
     private void login() {
 
         //先做一些基本的判断，比如输入的用户命为空，密码为空，网络不可用多大情况，都不需要去链接服务器了，而是直接返回提示错误
@@ -206,41 +213,100 @@ public class LoginActivity extends AppCompatActivity
             showToast("你输入的密码为空！");
             return;
         }
-        //登录一般都是请求服务器来判断密码是否正确，要请求网络，要子线程
-        showLoading();//显示加载框
-        Thread loginRunnable = new Thread() {
 
+        showLoading();//显示加载框
+        setLoginBtnClickable(false);//点击登录后，设置登录按钮不可点击状态
+        //网络请求
+        //第一次登陆，创建账号,否则从服务器取得登陆成功状态
+        if (firstLogin()) {
+            sendRequestWithOkHttp("http://haojie06.me:9999/create?user=" + getAccount() + ",password=" + getPassword());
+
+        } else {
+            sendRequestWithOkHttp("http://haojie06.me:9999/login?user=" + getAccount() + ",password=" + getPassword());
+
+        }
+        /**
+         * 模拟登录情况
+         * 用户名gyy，密码123456，就能登录成功，否则登录失败
+         */
+       /*
+        if (getAccount().equals("gyy") && getPassword().equals("123456")) {
+            showToast("登录成功");
+            loadCheckBoxState();//记录下当前用户记住密码和自动登录的状态;
+            finish();//关闭页面
+        } else {
+            showToast("输入的登录账号或密码不正确");
+        }
+*/
+        setLoginBtnClickable(true);  //这里解放登录按钮，设置为可以点击
+        hideLoading();//隐藏加载框
+    }
+
+
+    /**
+     * 网络请求
+     */
+    private void sendRequestWithOkHttp(final String url) {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                super.run();
-                setLoginBtnClickable(false);//点击登录后，设置登录按钮不可点击状态
-
-
-                //睡眠3秒
                 try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
+                    OkHttpClient mOkHttpClient = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .build();
+                    Response response = mOkHttpClient.newCall(request).execute();
+                    String responseData = response.body().string();
+                    showResponse(responseData);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                //判断账号和密码
-                if (getAccount().equals("gyy") && getPassword().equals("123456")) {
-                    showToast("登录成功");
-                    loadCheckBoxState();//记录下当前用户记住密码和自动登录的状态;
-                    finish();//关闭页面
-                } else {
-                    showToast("输入的登录账号或密码不正确");
-                }
-
-                setLoginBtnClickable(true);  //这里解放登录按钮，设置为可以点击
-                hideLoading();//隐藏加载框
             }
-        };
-        loginRunnable.start();
-
+        }).start();
 
     }
 
+    private void showResponse(String response) {
+        String content[] = response.split(",");
+        Message message = new Message();
+        switch (content[0]) {
+            case "1":
+                message.what = 1;
+                handler.sendMessage(message);
+                mResponse = content[1];
+                break;
+            case "0":
+                message.what = 0;
+                handler.sendMessage(message);
+                mResponse = content[1];
+                break;
+            default:
+        }
+
+    }
+
+    /**
+     * handler
+     */
+    private Handler handler = new Handler() {
+
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+                case 1:
+                    showToast("登录成功！");
+                    loadCheckBoxState();
+                    finish();
+                    break;
+                case 0:
+                    showToast(mResponse + ",输入的登录账号或密码不正确");
+                    break;
+                default:
+
+            }
+        }
+
+    };
 
     /**
      * 保存用户账号
@@ -343,28 +409,6 @@ public class LoginActivity extends AppCompatActivity
         mLoadingDialog.show();
     }
 
-    /**
-     * 圆形dialog
-
-    ProgressDialog mypDialog=new ProgressDialog(this);
-    //实例化
-            mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    //设置进度条风格，风格为圆形，旋转的
-            mypDialog.setTitle("Google");
-    //设置ProgressDialog 标题
-            mypDialog.setMessage(getResources().getString(R.string.second));
-    //设置ProgressDialog 提示信息
-            mypDialog.setIcon(R.drawable.android);
-    //设置ProgressDialog 标题图标
-            mypDialog.setButton("Google",this);
-    //设置ProgressDialog 的一个Button
-            mypDialog.setIndeterminate(false);
-    //设置ProgressDialog 的进度条是否不明确
-            mypDialog.setCancelable(true);
-    //设置ProgressDialog 是否可以按退回按键取消
-            mypDialog.show();
-    //让ProgressDialog显示
-     */
     /**
      * 隐藏加载的进度框
      */
