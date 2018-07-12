@@ -13,7 +13,7 @@
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/wangluo_icon_round"
         android:label="网罗"
         android:roundIcon="@mipmap/wangluo_icon_round"
         android:supportsRtl="true"
